@@ -1,17 +1,12 @@
-import type { Metadata } from 'next'
-import { ClerkProvider } from '@clerk/nextjs'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import { ToastProvider } from '@/components/providers/toaster-provider'
-import ThemeSwitch from "@/components/theme-switch";
-import ThemeContextProvider from '@/components/providers/theme-provider'
-import { ConfettiProvider } from '@/components/providers/confetti-provider'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'KenDev NextJS LMS',
-  description: 'Coded by Ken along with Antonio',
+  title: 'CuriousCourses',
+  description: 'Frontend courses for the web dev learner',
 }
 
 export default function RootLayout({
@@ -20,17 +15,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-        <html lang="en">
-          <body className={inter.className}>
-            <ThemeContextProvider>
-              <ConfettiProvider />
-              <ToastProvider />
-              {children}
-              <ThemeSwitch />
-            </ThemeContextProvider>
-          </body>
-        </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
   )
 }
