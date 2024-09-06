@@ -31,21 +31,23 @@ const CoursesPreview: React.FC = () => {
 	}, [])
 
 	if (error) {
-		return <div>Error: {error}</div>
+		return <div className='text-red-500'>Error: {error}</div>
 	}
 
 	return (
-		<section style={{ padding: '2rem', backgroundColor: '#f9f9f9' }}>
-			<h2>Popular Courses</h2>
-			<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+		<section className='py-8 bg-gray-100'>
+			<h2 className='text-3xl font-semibold text-center mb-8'>
+				Popular Courses
+			</h2>
+			<div className='flex flex-wrap justify-center'>
 				{courses.map((course) => (
 					<div
 						key={course.id}
-						style={{ margin: '1rem', width: '200px' }}
+						className='m-4 w-64 p-4 bg-white shadow-md rounded-lg'
 					>
-						<h3>{course.title}</h3>
+						<h3 className='text-xl font-bold mb-2'>{course.title}</h3>
 						<Link href={`/courses/${course.slug}`}>
-							<a style={{ color: '#0070f3' }}>Learn More</a>
+							<a className='text-blue-500 hover:underline'>Learn More</a>
 						</Link>
 					</div>
 				))}

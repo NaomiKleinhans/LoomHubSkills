@@ -31,21 +31,23 @@ const CategoriesPreview: React.FC = () => {
 	}, [])
 
 	if (error) {
-		return <div>Error: {error}</div>
+		return <div className='text-red-500'>Error: {error}</div>
 	}
 
 	return (
-		<section style={{ padding: '2rem' }}>
-			<h2>Explore Categories</h2>
-			<div style={{ display: 'flex', flexWrap: 'wrap' }}>
+		<section className='py-8'>
+			<h2 className='text-3xl font-semibold text-center mb-8'>
+				Explore Categories
+			</h2>
+			<div className='flex flex-wrap justify-center'>
 				{categories.map((category) => (
 					<div
 						key={category.id}
-						style={{ margin: '1rem', width: '200px' }}
+						className='m-4 w-64 p-4 bg-white shadow-md rounded-lg'
 					>
-						<h3>{category.name}</h3>
+						<h3 className='text-xl font-bold mb-2'>{category.name}</h3>
 						<Link href={`/categories/${category.slug}`}>
-							<a style={{ color: '#0070f3' }}>View Courses</a>
+							<a className='text-blue-500 hover:underline'>View Courses</a>
 						</Link>
 					</div>
 				))}

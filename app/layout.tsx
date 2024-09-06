@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
@@ -30,18 +31,18 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<header>
-					<nav>
-						<ul>
-							<li>
+					<nav className='navbar'>
+						<ul className='nav-list'>
+							<li className='nav-item'>
 								<Link href='/'>Home</Link>
 							</li>
-							<li>
+							<li className='nav-item'>
 								<Link href='/courses'>Courses</Link>
 							</li>
-							<li>
+							<li className='nav-item'>
 								<Link href='/categories'>Categories</Link>
 							</li>
-							<li>
+							<li className='nav-item'>
 								<Link href='/lessons'>Lessons</Link>
 							</li>
 						</ul>
