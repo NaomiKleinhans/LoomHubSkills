@@ -7,12 +7,12 @@ import CoursesPreview from '../components/CoursesPreview'
 
 const LandingPage: React.FC = () => {
   return (
-		<div>
+		<>
 			<HeroSection />
 			<FeatureSection />
 			<CategoriesPreview />
 			<CoursesPreview />
-		</div>
+		</>
 	)
 }
 
