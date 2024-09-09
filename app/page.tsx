@@ -1,19 +1,27 @@
-// app/landing/page.tsx
 import React from 'react'
-import HeroSection from '../components/HeroSection'
-import FeatureSection from '../components/FeatureSection'
-import CategoriesPreview from '../components/CategoriesPreview'
-import CoursesPreview from '../components/CoursesPreview'
+// import Head from 'next/head'
+import Hero from './components/Hero'
+import Features from './components/Features'
+import Testimonials from './components/Testimonials'
+import CTA from './components/CTA'
+import Footera from './components/Footera'
 
-const LandingPage: React.FC = () => {
-  return (
+export default function Home() {
+	return (
 		<>
-			<HeroSection />
-			<FeatureSection />
-			<CategoriesPreview />
-			<CoursesPreview />
+			{/* <Head>
+        <title>Welcome to LMS Platform</title>
+        <meta
+          name='description'
+          content='An innovative Learning Management System for modern education.'
+        />
+      </Head> */}
+
+			<Hero />
+			<Features />
+			<Testimonials />
+			<CTA />
+			<Footera />
 		</>
 	)
 }
-
-export default LandingPage

@@ -1,24 +1,24 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import api from '../lib/api'
+import api from '../../lib/api'
 import Link from 'next/link'
 
-type Category = {
+type Course = {
 	id: number
-	name: string
+	title: string
 	slug: string
 }
 
-const CategoriesPreview: React.FC = () => {
-	const [categories, setCategories] = useState<Category[]>([])
+const CoursesPreview: React.FC = () => {
+	const [courses, setCourses] = useState<Course[]>([])
 	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		const fetchCategories = async () => {
+		const fetchCourses = async () => {
 			try {
-				const { data } = await api.get<Category[]>('/categories')
-				setCategories(data)
+				const { data } = await api.get<Course[]>('/courses')
+				setCourses(data)
 			} catch (err) {
 				if (err instanceof Error) {
 					setError(err.message)
@@ -27,7 +27,7 @@ const CategoriesPreview: React.FC = () => {
 				}
 			}
 		}
-		fetchCategories()
+		fetchCourses()
 	}, [])
 
 	if (error) {
@@ -35,19 +35,19 @@ const CategoriesPreview: React.FC = () => {
 	}
 
 	return (
-		<section className='py-8'>
+		<section className='py-8 bg-gray-100'>
 			<h2 className='text-3xl font-semibold text-center mb-8'>
-				Explore Categories
+				Popular Courses
 			</h2>
 			<div className='flex flex-wrap justify-center'>
-				{categories.map((category) => (
+				{courses.map((course) => (
 					<div
-						key={category.id}
+						key={course.id}
 						className='m-4 w-64 p-4 bg-white shadow-md rounded-lg'
 					>
-						<h3 className='text-xl font-bold mb-2'>{category.name}</h3>
-						<Link href={`/categories/${category.slug}`}>
-							<a className='text-blue-500 hover:underline'>View Courses</a>
+						<h3 className='text-xl font-bold mb-2'>{course.title}</h3>
+						<Link href={`/courses/${course.slug}`}>
+							<a className='text-blue-500 hover:underline'>Learn More</a>
 						</Link>
 					</div>
 				))}
@@ -56,4 +56,4 @@ const CategoriesPreview: React.FC = () => {
 	)
 }
 
-export default CategoriesPreview
+export default CoursesPreview

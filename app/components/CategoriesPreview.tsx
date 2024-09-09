@@ -1,24 +1,24 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import api from '../lib/api'
+import api from '../../lib/api'
 import Link from 'next/link'
 
-type Course = {
+type Category = {
 	id: number
-	title: string
+	name: string
 	slug: string
 }
 
-const CoursesPreview: React.FC = () => {
-	const [courses, setCourses] = useState<Course[]>([])
+const CategoriesPreview: React.FC = () => {
+	const [categories, setCategories] = useState<Category[]>([])
 	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		const fetchCourses = async () => {
+		const fetchCategories = async () => {
 			try {
-				const { data } = await api.get<Course[]>('/courses')
-				setCourses(data)
+				const { data } = await api.get<Category[]>('/categories')
+				setCategories(data)
 			} catch (err) {
 				if (err instanceof Error) {
 					setError(err.message)
@@ -27,7 +27,7 @@ const CoursesPreview: React.FC = () => {
 				}
 			}
 		}
-		fetchCourses()
+		fetchCategories()
 	}, [])
 
 	if (error) {
@@ -35,19 +35,19 @@ const CoursesPreview: React.FC = () => {
 	}
 
 	return (
-		<section className='py-8 bg-gray-100'>
+		<section className='py-8'>
 			<h2 className='text-3xl font-semibold text-center mb-8'>
-				Popular Courses
+				Explore Categories
 			</h2>
 			<div className='flex flex-wrap justify-center'>
-				{courses.map((course) => (
+				{categories.map((category) => (
 					<div
-						key={course.id}
+						key={category.id}
 						className='m-4 w-64 p-4 bg-white shadow-md rounded-lg'
 					>
-						<h3 className='text-xl font-bold mb-2'>{course.title}</h3>
-						<Link href={`/courses/${course.slug}`}>
-							<a className='text-blue-500 hover:underline'>Learn More</a>
+						<h3 className='text-xl font-bold mb-2'>{category.name}</h3>
+						<Link href={`/categories/${category.slug}`}>
+							<a className='text-blue-500 hover:underline'>View Courses</a>
 						</Link>
 					</div>
 				))}
@@ -56,4 +56,4 @@ const CoursesPreview: React.FC = () => {
 	)
 }
 
-export default CoursesPreview
+export default CategoriesPreview
