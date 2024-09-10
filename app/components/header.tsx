@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
-import { ThemeToggle } from '../components/theme-toggle'
+// import { ThemeToggle } from '../components/theme-toggle'
 import { Button } from './ui/button'
 
 export default function Header() {
@@ -13,18 +13,21 @@ export default function Header() {
 						<Link href='/'>Home</Link>
 					</li>
 					<li>
-						<Link href='/protected/server'>Protected (server)</Link>
+						<Link href='/courses'>Courses</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Link href='/protected/client'>Protected (client)</Link>
+					</li> */}
+					<li>
+						<Link href='/about'>About</Link>
 					</li>
 					<li>
-						<Link href='/dashboard'>Dashboard</Link>
+						<Link href='/contact'>Contact</Link>
 					</li>
 				</ul>
 
 				<div className='flex items-center justify-between gap-6'>
-					<ThemeToggle />
+					{/* <ThemeToggle /> */}
 
 					<SignedOut>
 						<SignInButton mode='modal'>
