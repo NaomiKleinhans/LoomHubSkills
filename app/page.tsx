@@ -6,6 +6,7 @@ import CTA from './components/CTA'
 import Footera from './components/Footera'
 import Hero from './components/Hero'
 import { UserButton } from '@clerk/nextjs'
+import Header from './components/header'
 
 export default function Home() {
 	return (
@@ -17,6 +18,7 @@ export default function Home() {
           content='An innovative Learning Management System for modern education.'
         />
       </Head> */}
+			<Header/>
 <UserButton />
 			<Hero />
 			<Features />
