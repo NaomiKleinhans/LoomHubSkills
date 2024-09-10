@@ -1,10 +1,11 @@
 import React from 'react'
 // import Head from 'next/head'
-import Hero from './components/Hero'
 import Features from './components/Features'
 import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 import Footera from './components/Footera'
+import Hero from './components/Hero'
+import { UserButton } from '@clerk/nextjs'
 
 export default function Home() {
 	return (
@@ -16,7 +17,7 @@ export default function Home() {
           content='An innovative Learning Management System for modern education.'
         />
       </Head> */}
-
+<UserButton />
 			<Hero />
 			<Features />
 			<Testimonials />
