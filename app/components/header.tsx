@@ -3,11 +3,17 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 // import { ThemeToggle } from '../components/theme-toggle'
 import { Button } from './ui/button'
+import Image from 'next/image'
 
 export default function Header() {
 	return (
-		<header className='py-4'>
+		<header className='py-1 items-center '>
 			<nav className='container flex items-center justify-between'>
+				<Image
+					src='/logo1.png'
+					alt='logo'
+					width={150}
+				height={150}/>
 				<ul className='flex gap-10 text-sm font-medium'>
 					<li>
 						<Link href='/'>Home</Link>
