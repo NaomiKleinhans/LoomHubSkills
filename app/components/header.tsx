@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 export default function Header() {
 	return (
-		<header className='py-1 items-center '>
+		<header className='py-1 items-center m-2 px-4'>
 			<nav className='container flex items-center justify-between'>
 				<Image
 					src='/logo1.png'

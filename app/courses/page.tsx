@@ -1,6 +1,7 @@
 // app/courses/page.tsx
 import React from 'react'
 import api from '@/lib/api'
+import Header from '../components/header'
 
 type Course = {
 	id: number
@@ -23,6 +24,7 @@ const CoursesPage = async () => {
 
 	return (
 		<div>
+			<Header/>
 			<h1>Courses</h1>
 			{courses.length === 0 ? (
 				<p>No courses available.</p>
