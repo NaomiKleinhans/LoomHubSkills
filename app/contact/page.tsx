@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Label } from '../components/label'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
 import { Button } from '../components/button'
@@ -36,15 +35,12 @@ const Contact = () => {
 
 	return (
 		<div className='container mt-24 px-4 md:px-6'>
-			<div className='flex flex-col items-center justify-center space-y-4 text-center'>
-				<h2 className='lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
-					Contact Us
-				</h2>
+			<div className='text-center lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
+				Contact Us
 			</div>
 			<div className='space-y-4 text-textColor'>
 				<div className='grid grid-cols-2 gap-4'>
 					<div className='space-y-2'>
-						<Label htmlFor='firstName'>First name</Label>
 						<Input
 							id='firstName'
 							placeholder='Enter your first name'
@@ -53,7 +49,6 @@ const Contact = () => {
 						/>
 					</div>
 					<div className='space-y-2'>
-						<Label htmlFor='lastName'>Last name</Label>
 						<Input
 							id='lastName'
 							placeholder='Enter your last name'
@@ -63,7 +58,6 @@ const Contact = () => {
 					</div>
 				</div>
 				<div className='space-y-2'>
-					<Label htmlFor='email'>Email</Label>
 					<Input
 						id='email'
 						placeholder='Enter your email'
@@ -73,7 +67,6 @@ const Contact = () => {
 					/>
 				</div>
 				<div className='space-y-2'>
-					<Label htmlFor='message'>Message</Label>
 					<Textarea
 						className='min-h-[100px]'
 						id='message'
