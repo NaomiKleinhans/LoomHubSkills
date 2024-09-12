@@ -1,24 +1,22 @@
-import React, { MouseEventHandler, CSSProperties, ReactNode } from 'react'
+// components/button.tsx
+import React from 'react'
 
-export interface ButtonProps {
-	label?: string
-	onClick?: MouseEventHandler<HTMLButtonElement>
-	style?: CSSProperties
-	children?: ReactNode
+interface ButtonProps {
+	label: string
+	style?: React.CSSProperties
+	disabled?: boolean
+	onClick: () => void // Ensure onClick is a function with no return type
 }
 
-export const Button: React.FC<ButtonProps> = ({
-	label,
-	onClick,
-	style,
-	children
-}) => {
-	return (
-		<button
-			onClick={onClick}
-			style={style}
-		>
-			{label ?? children ?? 'X'}
-		</button>
-	)
-}
+const Button: React.FC<ButtonProps> = ({ label, style, disabled, onClick }) => (
+	<button
+		style={style}
+		disabled={disabled}
+		onClick={onClick}
+		className='btn'
+	>
+		{label}
+	</button>
+)
+
+export default Button

@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import { Input } from '../components/input'
 import { Textarea } from '../components/textarea'
-import { Button } from '../components/button'
+import Button  from '../components/button'
+import Header from '../components/header'
 
 const Contact = () => {
 	const [formData, setFormData] = useState({
@@ -13,6 +14,10 @@ const Contact = () => {
 		message: ''
 	})
 
+	const [isSending, setIsSending] = useState(false)
+	const [successMessage, setSuccessMessage] = useState('')
+	const [errorMessage, setErrorMessage] = useState('')
+
 	const handleChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -20,24 +25,39 @@ const Contact = () => {
 		setFormData((prev) => ({ ...prev, [id]: value }))
 	}
 
-	const handleSendEmail = () => {
-		const { firstName, lastName, email, message } = formData
+	const handleSendEmail = async () => {
+		setIsSending(true)
+		setSuccessMessage('')
+		setErrorMessage('')
 
-		const subject = `Contact Form Submission from ${firstName} ${lastName}`
-		const body = `Email: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`
+		try {
+			const res = await fetch('/api/send-email', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
 
-		window.open(
-			`mailto:maartensnaomi@gmail.com?subject=${encodeURIComponent(
-				subject
-			)}&body=${encodeURIComponent(body)}`
-		)
+			if (res.ok) {
+				setSuccessMessage('Message sent successfully!')
+			} else {
+				setErrorMessage('Failed to send the message. Please try again.')
+			}
+		} catch (error) {
+			setErrorMessage('Something went wrong. Please try again later.')
+		} finally {
+			setIsSending(false)
+		}
 	}
+	
 
 	return (
-		<div className='container mt-24 px-4 md:px-6'>
-			<div className='text-center lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
+		<div>
+			<Header />
+			<h1 className='text-center lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
 				Contact Us
-			</div>
+			</h1>
 			<div className='space-y-4 text-textColor'>
 				<div className='grid grid-cols-2 gap-4'>
 					<div className='space-y-2'>
@@ -77,15 +97,22 @@ const Contact = () => {
 				</div>
 				<div>
 					<Button
-						label='Send Message'
+						label={isSending ? 'Sending...' : 'Send Message'}
 						style={{
-							backgroundColor: '#5A75CE',
+							backgroundColor: isSending ? '#999' : '#5A75CE',
 							padding: '10px 20px',
 							borderRadius: '10px'
 						}}
+						disabled={isSending}
 						onClick={handleSendEmail}
 					/>
 				</div>
+				{successMessage && (
+					<div className='text-green-500 mt-4'>{successMessage}</div>
+				)}
+				{errorMessage && (
+					<div className='text-red-500 mt-4'>{errorMessage}</div>
+				)}
 			</div>
 		</div>
 	)
