@@ -1,63 +1,71 @@
-import { Metadata } from 'next'
-import api from '../../../lib/api'
+'use client' // Mark the component as a Client Component
+
+import { useParams } from 'next/navigation' // Import useParams instead of useRouter
+import { fetchCourses } from '../../api/course'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-type Lesson = {
+interface Course {
 	id: number
-	title: string
-	slug: string
-}
-
-type Course = {
-	id: number
-	title: string
-	description: string
-	slug: string
-	lessons: Lesson[]
-}
-
-export async function generateStaticParams() {
-	const { data: courses } = await api.get<Course[]>('/courses')
-	return courses.map((course) => ({ slug: course.slug }))
-}
-
-export async function generateMetadata({
-	params
-}: {
-	params: { slug: string }
-}): Promise<Metadata> {
-	const { data: course } = await api.get<Course[]>(
-		`/courses?slug=${params.slug}`
-	)
-	return { title: course[0]?.title || 'Course Details' }
-}
-
-const CoursePage = async ({ params }: { params: { slug: string } }) => {
-	const { data: course } = await api.get<Course[]>(
-		`/courses?slug=${params.slug}`
-	)
-	const currentCourse = course[0]
-
-	if (!currentCourse) {
-		return <div>Course not found</div>
+	attributes: {
+		title: string
+		slug: string
+		content: string // Assuming 'content' is the field that holds the course content
 	}
+}
+
+const CourseDetail = () => {
+	const params = useParams() as { slug: string } // Extract parameters from useParams
+	const slug = params.slug
+	const [course, setCourse] = useState<Course | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+
+	useEffect(() => {
+		const getCourse = async () => {
+			if (slug) {
+				try {
+					const courses = await fetchCourses()
+					const foundCourse = courses.data.find(
+						(course: Course) => course.attributes.slug === slug
+					)
+					if (foundCourse) {
+						setCourse(foundCourse)
+					} else {
+						setError('Course not found')
+					}
+				} catch (err) {
+					setError('Failed to fetch course')
+				}
+				setLoading(false)
+			}
+		}
+
+		getCourse()
+	}, [slug])
+
+	if (loading) return <p>Loading...</p>
+	if (error) return <p>{error}</p>
 
 	return (
-		<div>
-			<h1>{currentCourse.title}</h1>
-			<p>{currentCourse.description}</p>
-			<h2>Lessons</h2>
-			<ul>
-				{currentCourse.lessons.map((lesson) => (
-					<li key={lesson.id}>
-						<Link href={`/lessons/${lesson.slug}`}>
-							<a>{lesson.title}</a>
-						</Link>
-					</li>
-				))}
-			</ul>
+		<div className='container mx-auto p-4'>
+			{course && (
+				<>
+					<h1 className='text-2xl mb-6'>{course.attributes.title}</h1>
+					<div className='prose'>
+						{/* Render the course content */}
+						<div
+							dangerouslySetInnerHTML={{ __html: course.attributes.content }}
+						/>
+					</div>
+					{/* Optional: add a link back to the list of courses or home */}
+					<Link href='/courses'>
+						<a className='text-blue-500'>Back to courses</a>
+					</Link>
+				</>
+			)}
 		</div>
 	)
 }
 
-export default CoursePage
+export default CourseDetail
