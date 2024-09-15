@@ -1,42 +1,42 @@
-// Assuming Strapi's API response shape for a course, category, and profile
+// types.ts
+export interface ImageAttributes {
+	url: string
+}
 
-export type Category = {
-	id: string
+export interface ImageData {
+	attributes: ImageAttributes
+}
+
+export interface CategoryAttributes {
+	Name: string
+	Slug: string
+	Description: string
+	createdAt: string
+	updatedAt: string
+	publishedAt: string
+	image?: {
+		data?: ImageData
+	}
+}
+
+export interface Category {
+	id: number
+	attributes: CategoryAttributes
+	Name: string
+	Slug: string
+	image?: {
+		data?: ImageData
+	}
+}
+
+export interface CourseAttributes {
 	name: string
+	image?: {
+		data?: ImageData
+	}
 }
 
-export type Chapter = {
-	id: string
-	title: string
-	// add other fields as per your schema
+export interface Course {
+	id: number
+	attributes: CourseAttributes
 }
-
-export type Course = {
-	id: string
-	title: string
-	description: string
-	// add other fields based on your Strapi schema
-	category: Category | null
-	chapters: Chapter[]
-	progress: number | null
-}
-
-export type Profile = {
-	id: string
-	username: string
-	email: string
-	// add any additional fields
-	createdAt: string
-	updatedAt: string
-}
-
-// Define the SafeProfile type without "createdAt" and "updatedAt"
-export type SafeProfile = Omit<Profile, 'createdAt' | 'updatedAt'> & {
-	createdAt: string
-	updatedAt: string
-	role: 'ADMIN' | 'TEACHER' | 'STUDENT'
-}
-
-
-
-// In '@/types' or 'types.ts'
