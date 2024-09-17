@@ -18,12 +18,13 @@ interface Course {
 
 const fetchCourseById = async (id: string): Promise<Course | null> => {
 	try {
-		const response = await axios.get(
-			`http://localhost:1337/api/courses/${id}?populate=*`
-		)
+		const response = await axios.get(`http://localhost:1337/api/courses/${id}`)
 		const course = response.data.data
 
 		if (!course) return null
+
+		// Log the full course response for debugging
+		console.log('Full Course Data:', course)
 
 		const {
 			Title,
@@ -32,17 +33,15 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 			Duration,
 			createdAt,
 			updatedAt,
-			Image, // Image should be populated now
-			Material, // Material should be populated too
+			Image, // Check if Image exists here
+			Material,
 			Author
 		} = course.attributes
 
 		// Handle image URL
-		const imageUrl = Image?.data?.attributes?.url
-			? `http://localhost:1337${Image.data.attributes.url}`
-			: ''
-		const materialUrl = Material?.data?.attributes?.url
-			? `http://localhost:1337${Material.data.attributes.url}`
+		const imageUrl = Image?.url ? `http://localhost:1337${Image.url}` : ''
+		const materialUrl = Material?.url
+			? `http://localhost:1337${Material.url}`
 			: ''
 
 		return {
@@ -50,7 +49,7 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 			title: Title,
 			description: Description,
 			image: imageUrl, // Add imageUrl here
-			materialUrl: materialUrl, // Add materialUrl here
+			materialUrl: materialUrl,
 			published: Published,
 			duration: Duration,
 			createdAt,
@@ -111,10 +110,10 @@ export default function CoursePage() {
 			<div className='my-4'>
 				{course.image && (
 					<Image
-						src='http://127.0.0.1:1337/uploads/emotions_emoticons_b7464dbf29.jpeg'
-						alt='Emotions Emoticons'
-						width={500}
-						height={500}
+						src={course.image}
+						alt={course.title}
+						width={800}
+						height={400}
 					/>
 				)}
 			</div>
