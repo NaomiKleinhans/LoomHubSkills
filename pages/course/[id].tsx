@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import Head from 'next/head'
+import Header from '@/components/header'
+import { SignIn, useUser } from '@clerk/nextjs'
 
 interface Course {
 	id: string
@@ -18,13 +21,12 @@ interface Course {
 
 const fetchCourseById = async (id: string): Promise<Course | null> => {
 	try {
-		const response = await axios.get(`http://localhost:1337/api/courses/${id}`)
+		const response = await axios.get(
+			`http://localhost:1337/api/courses/${id}?populate=*`
+		)
 		const course = response.data.data
 
 		if (!course) return null
-
-		// Log the full course response for debugging
-		console.log('Full Course Data:', course)
 
 		const {
 			Title,
@@ -33,15 +35,17 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 			Duration,
 			createdAt,
 			updatedAt,
-			Image, // Check if Image exists here
-			Material,
+			Image, // Image should be populated now
+			Material, // Material should be populated too
 			Author
 		} = course.attributes
 
 		// Handle image URL
-		const imageUrl = Image?.url ? `http://localhost:1337${Image.url}` : ''
-		const materialUrl = Material?.url
-			? `http://localhost:1337${Material.url}`
+		const imageUrl = Image?.data?.attributes?.url
+			? `http://localhost:1337${Image.data.attributes.url}`
+			: ''
+		const materialUrl = Material?.data?.attributes?.url
+			? `http://localhost:1337${Material.data.attributes.url}`
 			: ''
 
 		return {
@@ -49,7 +53,7 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 			title: Title,
 			description: Description,
 			image: imageUrl, // Add imageUrl here
-			materialUrl: materialUrl,
+			materialUrl: materialUrl, // Add materialUrl here
 			published: Published,
 			duration: Duration,
 			createdAt,
@@ -62,8 +66,16 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 	}
 }
 
-
 export default function CoursePage() {
+	 const { isLoaded, isSignedIn } = useUser()
+
+		if (!isLoaded || !isSignedIn) {
+			return (
+				<div className='flex justify-center mt-40'>
+					<SignIn routing='hash' />
+				</div>
+			)
+		}
 	const router = useRouter()
 	const { id } = router.query
 
@@ -93,11 +105,15 @@ export default function CoursePage() {
 	}, [id])
 
 	if (loading) {
-		return <div>Loading...</div>
+		return (
+			<div className='flex justify-center items-center h-screen text-xl'>
+				Loading...
+			</div>
+		)
 	}
 
 	if (error) {
-		return <div>{error}</div>
+		return <div className='text-red-600 font-semibold'>{error}</div>
 	}
 
 	if (!course) {
@@ -105,42 +121,106 @@ export default function CoursePage() {
 	}
 
 	return (
-		<div className='container mx-auto px-4'>
-			<h1 className='text-4xl font-bold'>{course.title}</h1>
-			<div className='my-4'>
-				{course.image && (
-					<Image
-						src={course.image}
-						alt={course.title}
-						width={800}
-						height={400}
-					/>
-				)}
+		<div>
+			<Head>
+				<title>Course | LoomHub Skills</title>
+				<meta
+					name='description'
+					content='Course details on LoomHub Skills'
+				/>
+				<meta
+					name='robots'
+					content='index, follow'
+				/>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1'
+				/>
+				<link
+					rel='icon'
+					href='/favicon.ico'
+				/>
+			</Head>
+			<Header />
+			<div className='container mx-auto px-4 py-8'>
+				<div className='bg-white p-8 rounded-lg shadow-md'>
+					{/* Course Title */}
+					<h1 className='text-4xl font-bold mb-6 text-gray-900'>
+						{course.title}
+					</h1>
+
+					{/* Course Image */}
+					{course.image && (
+						<div className='mb-6'>
+							<Image
+								src={course.image}
+								alt={course.title}
+								width={600}
+								height={400}
+								className='rounded-lg shadow-md object-cover'
+							/>
+						</div>
+					)}
+
+					{/* Course Description */}
+					<p className='text-lg text-gray-700 mb-4'>{course.description}</p>
+
+					{/* Course Material */}
+					<div className='my-6'>
+						<h2 className='text-xl font-semibold text-gray-800 mb-2'>
+							Course Material
+						</h2>
+						{course.materialUrl ? (
+							<a
+								href={course.materialUrl}
+								download
+								className='text-blue-500 hover:underline'
+							>
+								Download course material
+							</a>
+						) : (
+							<p className='text-gray-500'>
+								No course material available for download.
+							</p>
+						)}
+					</div>
+
+					{/* Course Duration */}
+					<p className='text-lg text-gray-800'>
+						<span className='font-semibold'>Duration:</span> {course.duration}{' '}
+						hours
+					</p>
+
+					{/* Created and Updated Dates */}
+					<div className='mt-4 text-gray-600'>
+						<p>
+							<span className='font-semibold'>Created at:</span>{' '}
+							{new Date(course.createdAt).toLocaleDateString()}
+						</p>
+						<p>
+							<span className='font-semibold'>Updated at:</span>{' '}
+							{new Date(course.updatedAt).toLocaleDateString()}
+						</p>
+					</div>
+
+					{/* Course Author */}
+					<p className='mt-4 text-lg'>
+						<span className='font-semibold text-gray-900'>Author:</span>{' '}
+						{course.author}
+					</p>
+
+					{/* Course Publication Status */}
+					<p
+						className={`mt-6 text-lg ${
+							course.published ? 'text-green-500' : 'text-red-500'
+						}`}
+					>
+						{course.published
+							? 'This course is published.'
+							: 'This course is not published yet.'}
+					</p>
+				</div>
 			</div>
-			<p className='text-lg my-4'>{course.description}</p>
-			<p>Course material:</p>
-			{course.materialUrl ? (
-				<a
-					href={course.materialUrl} // URL to the course material
-					download // Ensures the file is downloaded instead of opening in the browser
-					className='text-blue-500 underline'
-				>
-					Download course material
-				</a>
-			) : (
-				<p className='text-gray-500'>
-					No course material available for download.
-				</p>
-			)}
-			<p className='font-semibold'>Duration: {course.duration} hours</p>
-			<p>Created at: {new Date(course.createdAt).toLocaleDateString()}</p>
-			<p>Updated at: {new Date(course.updatedAt).toLocaleDateString()}</p>
-			<p>Author: {course.author}</p>
-			{course.published ? (
-				<p className='text-green-500'>This course is published.</p>
-			) : (
-				<p className='text-red-500'>This course is not published yet.</p>
-			)}
 		</div>
 	)
 }
