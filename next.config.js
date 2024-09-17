@@ -1,10 +1,12 @@
 // next.config.js
 module.exports = {
-	async rewrites() {
-		return [
+	images: {
+		remotePatterns: [
 			{
-				source: '/old-route/:path*',
-				destination: '/new-route/:path*'
+				protocol: 'http',
+				hostname: 'localhost',
+				port: '1337',
+				pathname: '/uploads/**'
 			}
 		]
 	}

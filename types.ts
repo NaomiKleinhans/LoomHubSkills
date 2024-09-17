@@ -7,27 +7,21 @@ export interface ImageData {
 	attributes: ImageAttributes
 }
 
-export interface CategoryAttributes {
+export type CategoryAttributes = {
 	Name: string
 	Slug: string
-	Description: string
-	createdAt: string
-	updatedAt: string
-	publishedAt: string
-	image?: {
-		data?: ImageData
-	}
+	Image: string
 }
 
-export interface Category {
+export type Category = {
 	id: number
 	attributes: CategoryAttributes
-	Name: string
-	Slug: string
-	image?: {
-		data?: ImageData
-	}
 }
+
+export type CategoryResponse = {
+	data: Category[]
+}
+
 
 export interface CourseAttributes {
 	name: string

@@ -3,56 +3,59 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 
-// Define the structure of a course
-type Course = {
+interface Course {
+	id: string
 	title: string
 	description: string
 	image: string
+	materialUrl?: string // Add this line
 	published: boolean
 	duration: number
-	url: string
-	author: { username: string }
-	category: { name: string }
-	id: string
+	createdAt: string
+	updatedAt: string
+	author: string
 }
 
-// Define the structure of the API response
-type StrapiCourse = {
-	id: string
-	attributes: {
-		Title: string
-		Description: string
-		Image: { url: string }
-		Published: boolean
-		Duration: number
-		URL: string
-		Author: { username: string }
-		Category: { name: string }
-	}
-}
-
-// Define the structure of the API response wrapper
-type StrapiCourseResponse = {
-	data: StrapiCourse[]
-}
-
-// Function to fetch a course by ID from Strapi
-const fetchCourseById = async (slug: string): Promise<Course | null> => {
+const fetchCourseById = async (id: string): Promise<Course | null> => {
 	try {
-		const response = await axios.get<StrapiCourseResponse>(
-			`http://localhost:1337/api/courses/${slug}`
+		const response = await axios.get(
+			`http://localhost:1337/api/courses/${id}?populate=*`
 		)
-		const course = response.data.data[0] // Assuming a single course is returned
+		const course = response.data.data
+
+		if (!course) return null
+
+		const {
+			Title,
+			Description,
+			Published,
+			Duration,
+			createdAt,
+			updatedAt,
+			Image, // Image should be populated now
+			Material, // Material should be populated too
+			Author
+		} = course.attributes
+
+		// Handle image URL
+		const imageUrl = Image?.data?.attributes?.url
+			? `http://localhost:1337${Image.data.attributes.url}`
+			: ''
+		const materialUrl = Material?.data?.attributes?.url
+			? `http://localhost:1337${Material.data.attributes.url}`
+			: ''
+
 		return {
 			id: course.id,
-			title: course.attributes.Title,
-			description: course.attributes.Description,
-			image: course.attributes.Image?.url || '',
-			published: course.attributes.Published,
-			duration: course.attributes.Duration,
-			url: course.attributes.URL,
-			author: course.attributes.Author,
-			category: course.attributes.Category
+			title: Title,
+			description: Description,
+			image: imageUrl, // Add imageUrl here
+			materialUrl: materialUrl, // Add materialUrl here
+			published: Published,
+			duration: Duration,
+			createdAt,
+			updatedAt,
+			author: Author
 		}
 	} catch (error) {
 		console.error('Failed to fetch course:', error)
@@ -60,9 +63,10 @@ const fetchCourseById = async (slug: string): Promise<Course | null> => {
 	}
 }
 
+
 export default function CoursePage() {
 	const router = useRouter()
-	const { id } = router.query // Assuming course ID comes from query parameters
+	const { id } = router.query
 
 	const [course, setCourse] = useState<Course | null>(null)
 	const [loading, setLoading] = useState<boolean>(true)
@@ -105,26 +109,36 @@ export default function CoursePage() {
 		<div className='container mx-auto px-4'>
 			<h1 className='text-4xl font-bold'>{course.title}</h1>
 			<div className='my-4'>
-				<Image
-					src={course.image}
-					alt={course.title}
-					width={800}
-					height={400}
-				/>
+				{course.image && (
+					<Image
+						src='http://127.0.0.1:1337/uploads/emotions_emoticons_b7464dbf29.jpeg'
+						alt='Emotions Emoticons'
+						width={500}
+						height={500}
+					/>
+				)}
 			</div>
 			<p className='text-lg my-4'>{course.description}</p>
-			<p className='font-semibold'>Duration: {course.duration} hours</p>
-			<p>Author: {course.author.username}</p>
-			<p>Category: {course.category.name}</p>
-			{course.published ? (
+			<p>Course material:</p>
+			{course.materialUrl ? (
 				<a
-					href={course.url}
-					target='_blank'
-					rel='noopener noreferrer'
+					href={course.materialUrl} // URL to the course material
+					download // Ensures the file is downloaded instead of opening in the browser
 					className='text-blue-500 underline'
 				>
-					Go to Course
+					Download course material
 				</a>
+			) : (
+				<p className='text-gray-500'>
+					No course material available for download.
+				</p>
+			)}
+			<p className='font-semibold'>Duration: {course.duration} hours</p>
+			<p>Created at: {new Date(course.createdAt).toLocaleDateString()}</p>
+			<p>Updated at: {new Date(course.updatedAt).toLocaleDateString()}</p>
+			<p>Author: {course.author}</p>
+			{course.published ? (
+				<p className='text-green-500'>This course is published.</p>
 			) : (
 				<p className='text-red-500'>This course is not published yet.</p>
 			)}

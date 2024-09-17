@@ -1,6 +1,7 @@
 'use client'
 import Header from '@/components/header'
 import Head from 'next/head' // For SEO metadata
+import Link from 'next/link'
 
 const About = () => {
 	return (
@@ -75,12 +76,12 @@ const About = () => {
 						role, or pursuing personal interests, LoomHubSkills is here to guide
 						you every step of the way.
 					</p>
-					<a
-						href='/courses'
+					<Link
+						href='/category'
 						className='mt-6 inline-block bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200'
 					>
 						Browse Courses
-					</a>
+					</Link>
 				</div>
 			</section>
 		</>

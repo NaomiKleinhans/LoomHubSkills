@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import Image from 'next/image'
 
 // Define the structure of a category
 type CategoryAttributes = {
 	Name: string
 	Slug: string
+	Image: {
+		data: {
+			attributes: {
+				url: string
+			}
+		}
+	}
 }
 
 type Category = {
@@ -20,12 +28,17 @@ type CategoryResponse = {
 // Function to fetch categories from Strapi
 const fetchCategories = async (): Promise<Category[]> => {
 	try {
+		// Populate the Image field when fetching categories
 		const response = await axios.get<CategoryResponse>(
-			'http://localhost:1337/api/categories'
+			'http://localhost:1337/api/categories?populate=*'
 		)
 		return response.data.data.map((category) => ({
 			id: category.id,
-			attributes: category.attributes
+			attributes: {
+				Name: category.attributes.Name,
+				Slug: category.attributes.Slug,
+				Image: category.attributes.Image
+			}
 		}))
 	} catch (error) {
 		console.error('Failed to fetch categories:', error)
@@ -60,6 +73,17 @@ const CategoryIndexPage: React.FC = () => {
 							key={category.id}
 							className='bg-white border border-gray-200 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300 ease-in-out'
 						>
+							{category.attributes.Image && (
+								<div className='my-4'>
+									<Image
+										src={`/http://localhost:1337${category.attributes.Image}`}
+										alt={category.attributes.Name}
+										width={500}
+										height={500}
+										className='rounded-md'
+									/>
+								</div>
+							)}
 							<Link
 								href={`/category/${category.attributes.Slug}`}
 								className='block text-blue-500 hover:text-blue-700 font-semibold text-lg transition-colors duration-300 ease-in-out'
