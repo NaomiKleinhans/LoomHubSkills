@@ -5,6 +5,7 @@ import { Input } from '@/components/input'
 import { Textarea } from '@/components/textarea'
 import Button from '@/components/button'
 import Header from '@/components/header'
+import Head from 'next/head'
 
 // Define a type for form data
 type FormData = {
@@ -61,6 +62,25 @@ const Contact = () => {
 
 	return (
 		<div>
+			<Head>
+				<title>Contact | LoomHub Skills</title>
+				<meta
+					name='description'
+					content='Contact details on LoomHub Skills'
+				/>
+				<meta
+					name='robots'
+					content='index, follow'
+				/>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1'
+				/>
+				<link
+					rel='icon'
+					href='/public/favicon.ico'
+				/>
+			</Head>
 			<Header />
 			<h1 className='text-center lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
 				Contact Us

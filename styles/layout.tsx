@@ -1,14 +1,9 @@
-import type { Metadata } from 'next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-	title: 'KenDev NextJS LMS',
-	description: 'Coded by Ken along with Antonio'
-}
 
 export default function RootLayout({
 	children

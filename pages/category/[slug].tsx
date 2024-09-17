@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Header from '@/components/header'
+import Head from 'next/head'
 
 // Define the structure of a course
 type Course = {
@@ -68,6 +69,25 @@ const CategoryPage: React.FC = () => {
 
 	return (
 		<div>
+			<Head>
+				<title>Course List | LoomHub Skills</title>
+				<meta
+					name='description'
+					content='Course List per category on LoomHub Skills'
+				/>
+				<meta
+					name='robots'
+					content='index, follow'
+				/>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1'
+				/>
+				<link
+					rel='icon'
+					href='/favicon.ico'
+				/>
+			</Head>
 			<Header />
 			<div className='container mx-auto px-4 py-8 bg-gray-100 rounded-lg shadow-md'>
 				{coursesLoading ? (
@@ -82,7 +102,7 @@ const CategoryPage: React.FC = () => {
 					</div>
 				) : (
 					<div>
-						<h2 className='text-4xl font-semibold mb-6 text-gray-800'>
+						<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
 							Courses in <span className='text-blue-600'>{slug}</span> Category
 						</h2>
 						<ul className='list-disc pl-5 space-y-2'>

@@ -3,6 +3,7 @@ import axios from 'axios'
 import Link from 'next/link'
 import Image from 'next/image'
 import Header from '@/components/header'
+import Head from 'next/head'
 
 // Define the structure of a category
 type CategoryAttributes = {
@@ -63,8 +64,29 @@ const CategoryIndexPage: React.FC = () => {
 
 	return (
 		<div>
-			{' '}
+			<Head>
+				<title>Course Category | LoomHub Skills</title>
+				<meta
+					name='description'
+					content='Course Categories on LoomHub Skills'
+				/>
+				<meta
+					name='robots'
+					content='index, follow'
+				/>
+				<meta
+					name='viewport'
+					content='width=device-width, initial-scale=1'
+				/>
+				<link
+					rel='icon'
+					href='/favicon.ico'
+				/>
+			</Head>
 			<Header />
+			<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
+				Select a Category
+			</h2>
 			<div className='container mx-auto px-4 py-8'>
 				{loadingCategories ? (
 					<p className='text-center text-gray-500'>Loading categories...</p>
