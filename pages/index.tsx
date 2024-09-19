@@ -1,6 +1,6 @@
 // import { GetStaticProps } from 'next'
 // import { getCategories } from '../utils/api'
-import Header from '@/components/header'
+// import Header from '@/components/header'
 import Features from '@/components/Features'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
@@ -61,7 +61,7 @@ const HomePage: React.FC<Props> = ({  }) => {
 					href='/favicon.ico'
 				/>
 			</Head>
-			<Header />
+			{/* <Header /> */}
 			<Hero />
 			<Features />
 			<Testimonials />

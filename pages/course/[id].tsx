@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import Head from 'next/head'
 import Header from '@/components/header'
-import { SignIn, useUser } from '@clerk/nextjs'
+// import { SignIn, useUser } from '@clerk/nextjs'
 
 interface Course {
 	id: string
@@ -70,7 +70,7 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 }
 
 export default function CoursePage() {
-	const { isLoaded, isSignedIn } = useUser()
+	// const { isLoaded, isSignedIn } = useUser()
 	const router = useRouter()
 	const { id } = router.query
 
@@ -116,13 +116,13 @@ export default function CoursePage() {
 	if (!course) {
 		return <div>No course data available.</div>
 	}
-	if (!isLoaded || !isSignedIn) {
-		return (
-			<div className='flex justify-center mt-40'>
-				<SignIn routing='hash' />
-			</div>
-		)
-	}
+	// if (!isLoaded || !isSignedIn) {
+	// 	return (
+	// 		<div className='flex justify-center mt-40'>
+	// 			<SignIn routing='hash' />
+	// 		</div>
+	// 	)
+	// }
 	return (
 		<div>
 			<Head>
