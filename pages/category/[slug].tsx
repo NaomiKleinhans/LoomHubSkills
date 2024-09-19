@@ -35,7 +35,7 @@ const fetchCoursesByCategory = async (
 ): Promise<Course[]> => {
 	try {
 		const response = await axios.get<StrapiCourseResponse>(
-			`http://localhost:1337/api/courses?filters[category][Slug][$eq]=${categorySlug}`
+			`${process.env.NEXT_PUBLIC_API_URL}/courses?filters[category][Slug][$eq]=${categorySlug}`
 		)
 		return response.data.data.map((course) => ({
 			id: course.id,

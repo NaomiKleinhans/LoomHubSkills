@@ -6,7 +6,7 @@ export interface Category {
 	description: string
 }
 
-const apiUrl = 'http://localhost:1337/api'
+const apiUrl = 'https://supportive-melody-bc72f8134e.strapiapp.com/api'
 
 // Fetch all categories
 const fetchAllCategories = async (): Promise<Category[]> => {

@@ -5,6 +5,19 @@ import Image from 'next/image'
 import Header from '@/components/header'
 import Head from 'next/head'
 
+const imageLoader = ({
+	src,
+	width,
+	quality = 75
+}: {
+	src: string
+	width: number
+	quality?: number
+}) => {
+	return `process.env.NEXT_PUBLIC_API_URL/${src}?w=${width}&q=${quality}`
+}
+
+
 // Define the structure of a category
 type CategoryAttributes = {
 	Name: string
@@ -27,7 +40,7 @@ type Category = {
 const fetchCategories = async () => {
 	try {
 		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/categories`
+			`${process.env.NEXT_PUBLIC_API_URL}/categories`
 		)
 		const data = await response.json()
 
@@ -44,7 +57,6 @@ const fetchCategories = async () => {
 		return []
 	}
 }
-
 
 const CategoryIndexPage: React.FC = () => {
 	const [categories, setCategories] = useState<Category[]>([])
@@ -100,7 +112,8 @@ const CategoryIndexPage: React.FC = () => {
 								{category.attributes.Image && (
 									<div className='my-4'>
 										<Image
-											src={`http://localhost:1337${category.attributes.Image.data.attributes.url}`}
+											loader={imageLoader}
+											src={`${process.env.NEXT_PUBLIC_API_URL}${category.attributes.Image.data.attributes.url}`}
 											alt={category.attributes.Name}
 											width={500}
 											height={500}

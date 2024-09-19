@@ -3,10 +3,10 @@ module.exports = {
 	images: {
 		remotePatterns: [
 			{
-				protocol: 'http',
-				hostname: 'localhost',
-				port: '1337',
-				pathname: '/uploads/**'
+				protocol: 'https',
+				hostname: 'supportive-melody-bc72f8134e.strapiapp.com',
+				port: '',
+				pathname: '/api/uploads/**'
 			}
 		]
 	}

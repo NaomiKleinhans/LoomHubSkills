@@ -23,7 +23,7 @@ interface Course {
 const fetchCourseById = async (id: string): Promise<Course | null> => {
 	try {
 		const response = await axios.get(
-			`http://localhost:1337/api/courses/${id}?populate=*`
+			`${process.env.NEXT_PUBLIC_API_URL}/courses/${id}?populate=*`
 		)
 		const course = response.data.data
 
@@ -42,12 +42,14 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 		} = course.attributes
 
 		// Handle image URL
-		const imageUrl = Image?.data?.attributes?.url
-			? `http://localhost:1337${Image.data.attributes.url}`
-			: ''
-		const materialUrl = Material?.data?.attributes?.url
-			? `http://localhost:1337${Material.data.attributes.url}`
-			: ''
+	const imageUrl = Image?.data?.attributes?.url
+		? `${process.env.NEXT_PUBLIC_API_URL}${Image.data.attributes.url}` // Removed the 'h'
+		: ''
+
+	const materialUrl = Material?.data?.attributes?.url
+		? `${process.env.NEXT_PUBLIC_API_URL}${Material.data.attributes.url}`
+		: ''
+
 
 		return {
 			id: course.id,
