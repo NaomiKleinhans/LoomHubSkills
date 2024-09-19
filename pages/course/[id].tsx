@@ -2,7 +2,7 @@
 import React,{ useState,useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
+// import Image from 'next/image'
 import Head from 'next/head'
 import Header from '@/components/header'
 // import { SignIn, useUser } from '@clerk/nextjs'
@@ -148,12 +148,12 @@ export default function CoursePage() {
 			<div className='container mx-auto px-4 py-8'>
 				<div className='bg-white p-8 rounded-lg shadow-md'>
 					{/* Course Title */}
-					<h1 className='text-4xl font-bold mb-6 text-gray-900'>
+					{/* <h1 className='text-4xl font-bold mb-6 text-gray-900'>
 						{course.title}
-					</h1>
+					</h1> */}
 
 					{/* Course Image */}
-					{course.image && (
+					{/* {course.image && (
 						<div className='mb-6'>
 							<Image
 								src={course.image}
@@ -163,13 +163,13 @@ export default function CoursePage() {
 								className='rounded-lg shadow-md object-cover'
 							/>
 						</div>
-					)}
+					)} */}
 
 					{/* Course Description */}
-					<p className='text-lg text-gray-700 mb-4'>{course.description}</p>
+					{/* <p className='text-lg text-gray-700 mb-4'>{course.description}</p> */}
 
 					{/* Course Material */}
-					<div className='my-6'>
+					{/* <div className='my-6'>
 						<h2 className='text-xl font-semibold text-gray-800 mb-2'>
 							Course Material
 						</h2>
@@ -186,16 +186,16 @@ export default function CoursePage() {
 								No course material available for download.
 							</p>
 						)}
-					</div>
+					</div> */}
 
 					{/* Course Duration */}
-					<p className='text-lg text-gray-800'>
+					{/* <p className='text-lg text-gray-800'>
 						<span className='font-semibold'>Duration:</span> {course.duration}{' '}
 						hours
-					</p>
+					</p> */}
 
 					{/* Created and Updated Dates */}
-					<div className='mt-4 text-gray-600'>
+					{/* <div className='mt-4 text-gray-600'>
 						<p>
 							<span className='font-semibold'>Created at:</span>{' '}
 							{new Date(course.createdAt).toLocaleDateString()}
@@ -204,16 +204,16 @@ export default function CoursePage() {
 							<span className='font-semibold'>Updated at:</span>{' '}
 							{new Date(course.updatedAt).toLocaleDateString()}
 						</p>
-					</div>
+					</div> */}
 
 					{/* Course Author */}
-					<p className='mt-4 text-lg'>
+					{/* <p className='mt-4 text-lg'>
 						<span className='font-semibold text-gray-900'>Author:</span>{' '}
 						{course.author}
-					</p>
+					</p> */}
 
 					{/* Course Publication Status */}
-					<p
+					{/* <p
 						className={`mt-6 text-lg ${
 							course.published ? 'text-green-500' : 'text-red-500'
 						}`}
@@ -221,7 +221,7 @@ export default function CoursePage() {
 						{course.published
 							? 'This course is published.'
 							: 'This course is not published yet.'}
-					</p>
+					</p> */}
 				</div>
 			</div>
 		</div>

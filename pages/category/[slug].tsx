@@ -1,72 +1,73 @@
 'use client'
-import React,{ useState,useEffect } from 'react'
-import axios from 'axios'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import React from 'react'
+// import axios from 'axios'
+// import { useRouter } from 'next/router'
+// import Link from 'next/link'
 import Header from '@/components/header'
 import Head from 'next/head'
+// import { useState, useEffect } from 'react'
 
-// Define the structure of a course
-type Course = {
-	id: number
-	title: string
-	description: string
-	slug: string
-}
+// // Define the structure of a course
+// type Course = {
+// 	id: number
+// 	title: string
+// 	description: string
+// 	slug: string
+// }
 
-type CourseAttributes = {
-	Title: string
-	Description: string
-	Slug: string
-}
+// type CourseAttributes = {
+// 	Title: string
+// 	Description: string
+// 	Slug: string
+// }
 
-type CourseData = {
-	id: number
-	attributes: CourseAttributes
-}
+// type CourseData = {
+// 	id: number
+// 	attributes: CourseAttributes
+// }
 
-type StrapiCourseResponse = {
-	data: CourseData[]
-}
+// type StrapiCourseResponse = {
+// 	data: CourseData[]
+// }
 
 // Function to fetch courses by category from Strapi
-const fetchCoursesByCategory = async (
-	categorySlug: string
-): Promise<Course[]> => {
-	try {
-		const response = await axios.get<StrapiCourseResponse>(
-			`${process.env.NEXT_PUBLIC_API_URL}/courses?filters[category][Slug][$eq]=${categorySlug}`
-		)
-		return response.data.data.map((course) => ({
-			id: course.id,
-			title: course.attributes.Title,
-			description: course.attributes.Description,
-			slug: course.attributes.Slug
-		}))
-	} catch (error) {
-		console.error('Failed to fetch courses:', error)
-		return []
-	}
-}
+// const fetchCoursesByCategory = async (
+// 	categorySlug: string
+// ): Promise<Course[]> => {
+// 	try {
+// 		const response = await axios.get<StrapiCourseResponse>(
+// 			`${process.env.NEXT_PUBLIC_API_URL}/courses?filters[category][Slug][$eq]=${categorySlug}`
+// 		)
+// 		return response.data.data.map((course) => ({
+// 			id: course.id,
+// 			title: course.attributes.Title,
+// 			description: course.attributes.Description,
+// 			slug: course.attributes.Slug
+// 		}))
+// 	} catch (error) {
+// 		console.error('Failed to fetch courses:', error)
+// 		return []
+// 	}
+// }
 
 const CategoryPage: React.FC = () => {
-	const [courses, setCourses] = useState<Course[]>([])
-	const [coursesLoading, setCoursesLoading] = useState<boolean>(false)
-	const router = useRouter()
-	const { slug } = router.query
+	// const [courses, setCourses] = useState<Course[]>([])
+	// const [coursesLoading, setCoursesLoading] = useState<boolean>(false)
+	// const router = useRouter()
+	// const { slug } = router.query
 
-	useEffect(() => {
-		if (slug && typeof slug === 'string') {
-			const loadCourses = async () => {
-				setCoursesLoading(true)
-				const fetchedCourses = await fetchCoursesByCategory(slug)
-				setCourses(fetchedCourses)
-				setCoursesLoading(false)
-			}
+	// useEffect(() => {
+	// 	if (slug && typeof slug === 'string') {
+	// 		const loadCourses = async () => {
+	// 			setCoursesLoading(true)
+	// 			const fetchedCourses = await fetchCoursesByCategory(slug)
+	// 			setCourses(fetchedCourses)
+	// 			setCoursesLoading(false)
+	// 		}
 
-			loadCourses()
-		}
-	}, [slug])
+	// 		loadCourses()
+	// 	}
+	// }, [slug])
 
 	return (
 		<div>
@@ -90,7 +91,7 @@ const CategoryPage: React.FC = () => {
 				/>
 			</Head>
 			<Header />
-			<div className='container mx-auto px-4 py-8 bg-gray-100 rounded-lg shadow-md'>
+			{/* <div className='container mx-auto px-4 py-8 bg-gray-100 rounded-lg shadow-md'>
 				{coursesLoading ? (
 					<div className='flex justify-center items-center h-64'>
 						<p className='text-lg text-gray-700'>Loading courses...</p>
@@ -124,7 +125,7 @@ const CategoryPage: React.FC = () => {
 						</ul>
 					</div>
 				)}
-			</div>
+			</div> */}
 		</div>
 	)
 }

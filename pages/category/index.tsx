@@ -1,76 +1,76 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // import axios from 'axios'
-import Link from 'next/link'
-import Image from 'next/image'
+// import { useRouter } from 'next/router'
+// import Link from 'next/link'
 import Header from '@/components/header'
 import Head from 'next/head'
+// import { useState, useEffect } from 'react'
 
-const imageLoader = ({
-	src,
-	width,
-	quality = 75
-}: {
-	src: string
-	width: number
-	quality?: number
-}) => {
-	return `process.env.NEXT_PUBLIC_API_URL/${src}?w=${width}&q=${quality}`
-}
-
+// const imageLoader = ({
+// 	src,
+// 	width,
+// 	quality = 75
+// }: {
+// 	src: string
+// 	width: number
+// 	quality?: number
+// }) => {
+// 	return `process.env.NEXT_PUBLIC_API_URL/${src}?w=${width}&q=${quality}`
+// }
 
 // Define the structure of a category
-type CategoryAttributes = {
-	Name: string
-	Slug: string
-	Image: {
-		data: {
-			attributes: {
-				url: string
-			}
-		}
-	}
-}
+// type CategoryAttributes = {
+// 	Name: string
+// 	Slug: string
+// 	Image: {
+// 		data: {
+// 			attributes: {
+// 				url: string
+// 			}
+// 		}
+// 	}
+// }
 
-type Category = {
-	id: string
-	attributes: CategoryAttributes
-}
+// type Category = {
+// 	id: string
+// 	attributes: CategoryAttributes
+// }
 
 // Function to fetch categories from Strapi
-const fetchCategories = async () => {
-	try {
-		const response = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/categories`
-		)
-		const data = await response.json()
+// const fetchCategories = async () => {
+// 	try {
+// 		const response = await fetch(
+// 			`${process.env.NEXT_PUBLIC_API_URL}/categories`
+// 		)
+// 		const data = await response.json()
 
-		console.log('Fetched categories data:', data) // Check what data is being returned
+// 		console.log('Fetched categories data:', data) // Check what data is being returned
 
-		if (data?.data && Array.isArray(data.data)) {
-			return data.data
-		} else {
-			console.error('Unexpected API response structure:', data)
-			return [] // Return an empty array if the structure is unexpected
-		}
-	} catch (error) {
-		console.error('Failed to fetch categories:', error)
-		return []
-	}
-}
+// 		if (data?.data && Array.isArray(data.data)) {
+// 			return data.data
+// 		} else {
+// 			console.error('Unexpected API response structure:', data)
+// 			return [] // Return an empty array if the structure is unexpected
+// 		}
+// 	} catch (error) {
+// 		console.error('Failed to fetch categories:', error)
+// 		return []
+// 	}
+// }
 
 const CategoryIndexPage: React.FC = () => {
-	const [categories, setCategories] = useState<Category[]>([])
-	const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
+	// 	const [categories, setCategories] = useState<Category[]>([])
+	// 	const [loadingCategories, setLoadingCategories] = useState<boolean>(true)
 
-	useEffect(() => {
-		const loadCategories = async () => {
-			const fetchedCategories = await fetchCategories()
-			setCategories(fetchedCategories)
-			setLoadingCategories(false)
-		}
+	// useEffect(() => {
+	// 	const loadCategories = async () => {
+	// 		const fetchedCategories = await fetchCategories()
+	// 		setCategories(fetchedCategories)
+	// 		setLoadingCategories(false)
+	// 	}
 
-		loadCategories()
-	}, [])
+	// 	loadCategories()
+	// }, [])
 
 	return (
 		<div>
@@ -97,7 +97,7 @@ const CategoryIndexPage: React.FC = () => {
 			<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
 				Select a Category
 			</h2>
-			<div className='container mx-auto px-4 py-8'>
+			{/* <div className='container mx-auto px-4 py-8'>
 				{loadingCategories ? (
 					<p className='text-center text-gray-500'>Loading categories...</p>
 				) : categories.length === 0 ? (
@@ -131,7 +131,7 @@ const CategoryIndexPage: React.FC = () => {
 						))}
 					</div>
 				)}
-			</div>
+			</div> */}
 		</div>
 	)
 }
