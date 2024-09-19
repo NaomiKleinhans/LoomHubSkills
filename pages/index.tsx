@@ -4,7 +4,7 @@ import Header from '@/components/header'
 import Features from '@/components/Features'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
-import Footer from '@/components/Footer'
+import Footer from '@/components/footerb'
 import Hero from '@/components/Hero'
 import Head from 'next/head'
 

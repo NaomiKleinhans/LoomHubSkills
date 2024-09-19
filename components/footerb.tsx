@@ -1,4 +1,5 @@
 // components/Footer.tsx
+import Link from 'next/link'
 import React from 'react'
 
 const Footer: React.FC = () => {
@@ -14,34 +15,34 @@ const Footer: React.FC = () => {
         <div>
           <h5 className='mb-2 text-lg font-bold'>Contact</h5>
           <p className='text-gray-400'>Email: support@lmsplatform.com</p>
-          <p className='text-gray-400'>Phone: +1 (123) 456-7890</p>
+          <p className='text-gray-400'>Phone: 0744380907</p>
         </div>
         <div>
           <h5 className='mb-2 text-lg font-bold'>Quick Links</h5>
           <ul>
             <li>
-              <a
-                href='#about'
+              <Link
+                href='/about'
                 className='text-gray-400 transition hover:text-white'
               >
                 About Us
-              </a>
+            </Link>
             </li>
-            <li>
+            {/* <li>
               <a
                 href='#contact'
                 className='text-gray-400 transition hover:text-white'
               >
                 Contact
               </a>
-            </li>
+            </li> */}
             <li>
-              <a
-                href='#privacy'
+              <Link
+                href='/privacy'
                 className='text-gray-400 transition hover:text-white'
               >
                 Privacy Policy
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
