@@ -4,7 +4,7 @@
 // import { Input } from '../components/input'
 // import { Textarea } from '../components/textarea'
 // import Button  from '../components/button'
-import Header from '../../components/header'
+import Header from '../components/header'
 
 const Contact = () => {
 	// 	const [formData, setFormData] = useState({

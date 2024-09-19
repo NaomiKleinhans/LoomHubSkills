@@ -1,12 +1,11 @@
 // import { GetStaticProps } from 'next'
 // import { getCategories } from '../utils/api'
-import Header from '@/components/header'
-import Features from '@/components/Features'
-import Testimonials from '@/components/Testimonials'
-import CTA from '@/components/CTA'
-import Hero from '@/components/Hero'
+import Header from '@/pages/components/header'
+import Features from '@/pages/components/Features'
+import Testimonials from '@/pages/components/Testimonials'
+import CTA from '@/pages/components/CTA'
+import Hero from '@/pages/components/Hero'
 import Head from 'next/head'
-
 
 interface Props {
 	categories: Category[]
@@ -38,8 +37,7 @@ export async function getStaticProps() {
 	}
 }
 
-
-const HomePage: React.FC<Props> = ({  }) => {
+const HomePage: React.FC<Props> = ({}) => {
 	return (
 		<div>
 			<Head>
