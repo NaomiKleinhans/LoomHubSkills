@@ -1,10 +1,10 @@
-import { GetStaticProps } from 'next'
-import { getCategories } from '../utils/api'
+// import { GetStaticProps } from 'next'
+// import { getCategories } from '../utils/api'
 import Header from '@/components/header'
 import Features from '@/components/Features'
 import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
-import Footer from '@/components/footerb'
+import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import Head from 'next/head'
 
@@ -18,25 +18,29 @@ export interface Category {
 	name: string
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export async function getStaticProps() {
 	try {
-		const categories = await getCategories()
+		const categories = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/categories`
+		)
+		const categoryData = await categories.json()
 		return {
 			props: {
-				categories
+				categories: categoryData
 			}
 		}
 	} catch (error) {
 		console.error('Failed to fetch categories in getStaticProps:', error)
 		return {
 			props: {
-				categories: [] // Return an empty array or handle the error appropriately
+				categories: []
 			}
 		}
 	}
 }
 
-const HomePage: React.FC<Props> = ({ categories }) => {
+
+const HomePage: React.FC<Props> = ({  }) => {
 	return (
 		<div>
 			<Head>
@@ -64,11 +68,6 @@ const HomePage: React.FC<Props> = ({ categories }) => {
 			<Testimonials />
 			<CTA />
 			<Footer />
-			<ul>
-				{categories.map((category) => (
-					<li key={category.id}>{category.name}</li>
-				))}
-			</ul>
 		</div>
 	)
 }

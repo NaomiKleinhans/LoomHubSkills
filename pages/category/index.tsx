@@ -1,6 +1,5 @@
-'use client'
-import React,{ useState,useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+// import axios from 'axios'
 import Link from 'next/link'
 import Image from 'next/image'
 import Header from '@/components/header'
@@ -20,34 +19,32 @@ type CategoryAttributes = {
 }
 
 type Category = {
-	id: number
+	id: string
 	attributes: CategoryAttributes
 }
 
-type CategoryResponse = {
-	data: Category[]
-}
-
 // Function to fetch categories from Strapi
-const fetchCategories = async (): Promise<Category[]> => {
+const fetchCategories = async () => {
 	try {
-		// Populate the Image field when fetching categories
-		const response = await axios.get<CategoryResponse>(
-			'http://localhost:1337/api/categories?populate=*'
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/categories`
 		)
-		return response.data.data.map((category) => ({
-			id: category.id,
-			attributes: {
-				Name: category.attributes.Name,
-				Slug: category.attributes.Slug,
-				Image: category.attributes.Image
-			}
-		}))
+		const data = await response.json()
+
+		console.log('Fetched categories data:', data) // Check what data is being returned
+
+		if (data?.data && Array.isArray(data.data)) {
+			return data.data
+		} else {
+			console.error('Unexpected API response structure:', data)
+			return [] // Return an empty array if the structure is unexpected
+		}
 	} catch (error) {
 		console.error('Failed to fetch categories:', error)
 		return []
 	}
 }
+
 
 const CategoryIndexPage: React.FC = () => {
 	const [categories, setCategories] = useState<Category[]>([])
@@ -103,7 +100,7 @@ const CategoryIndexPage: React.FC = () => {
 								{category.attributes.Image && (
 									<div className='my-4'>
 										<Image
-											src={`/http://localhost:1337${category.attributes.Image}`}
+											src={`http://localhost:1337${category.attributes.Image.data.attributes.url}`}
 											alt={category.attributes.Name}
 											width={500}
 											height={500}
