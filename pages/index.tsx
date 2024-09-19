@@ -61,6 +61,7 @@ const HomePage: React.FC<Props> = ({  }) => {
 					href='/favicon.ico'
 				/>
 			</Head>
+			<div>Hello</div>
 			{/* <Header /> */}
 			<Hero />
 			<Features />
