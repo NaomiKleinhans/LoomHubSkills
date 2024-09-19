@@ -11,7 +11,7 @@ const CTA: React.FC = () => {
 				Join thousands of educators and learners using our platform today.
 			</p>
 			<a
-				href='https://star-goshawk-24.accounts.dev/sign-up'
+				// href='https://star-goshawk-24.accounts.dev/sign-up'
 				className='rounded-full bg-white px-6 py-3 text-lg text-blue-500 transition hover:bg-gray-100'
 			>
 				Sign Up Now
