@@ -3,17 +3,15 @@ import { NextResponse } from 'next/server'
 
 const isProtectedRoute = createRouteMatcher(['/course/[...index]'])
 
-export default clerkMiddleware(async (auth, req) => {
-	// Call auth() to retrieve the current user's information
-	const { userId } = auth()
-
+export default clerkMiddleware((auth, req) => {
 	if (isProtectedRoute(req)) {
+		const { userId } = auth()
 		if (!userId) {
 			// Redirect to login if the user is not authenticated
 			return NextResponse.redirect('/login')
 		}
+		auth().protect() // Protects the route if it's a protected route
 	}
-
 	return NextResponse.next() // Proceed to the next middleware or route
 })
 
