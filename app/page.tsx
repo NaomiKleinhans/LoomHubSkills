@@ -5,7 +5,6 @@ import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 import Footera from './components/Footera'
 import Hero from './components/Hero'
-import { UserButton } from '@clerk/nextjs'
 import Header from './components/header'
 
 export default function Home() {
@@ -19,7 +18,6 @@ export default function Home() {
         />
       </Head> */}
 			<Header/>
-<UserButton />
 			<Hero />
 			<Features />
 			<Testimonials />
