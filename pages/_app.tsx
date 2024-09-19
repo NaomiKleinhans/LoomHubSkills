@@ -1,12 +1,12 @@
-import { ClerkProvider } from '@clerk/nextjs'
+// import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import type { AppProps } from 'next/app' // Import AppProps
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return 
-		<ClerkProvider>
+		// <ClerkProvider>
 			<Component {...pageProps} />
-		</ClerkProvider>
+		{/* </ClerkProvider> */}
 	
 }
 
