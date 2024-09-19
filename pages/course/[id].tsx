@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+'use client'
+import React,{ useState,useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -11,7 +12,7 @@ interface Course {
 	title: string
 	description: string
 	image: string
-	materialUrl?: string // Add this line
+	materialUrl?: string
 	published: boolean
 	duration: number
 	createdAt: string
@@ -67,21 +68,15 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 }
 
 export default function CoursePage() {
-	 const { isLoaded, isSignedIn } = useUser()
-
-		if (!isLoaded || !isSignedIn) {
-			return (
-				<div className='flex justify-center mt-40'>
-					<SignIn routing='hash' />
-				</div>
-			)
-		}
+	const { isLoaded, isSignedIn } = useUser()
 	const router = useRouter()
 	const { id } = router.query
 
 	const [course, setCourse] = useState<Course | null>(null)
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
+
+
 
 	useEffect(() => {
 		if (!id) return
@@ -119,7 +114,13 @@ export default function CoursePage() {
 	if (!course) {
 		return <div>No course data available.</div>
 	}
-
+	if (!isLoaded || !isSignedIn) {
+		return (
+			<div className='flex justify-center mt-40'>
+				<SignIn routing='hash' />
+			</div>
+		)
+	}
 	return (
 		<div>
 			<Head>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+'use client'
+import React,{ useState,useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
