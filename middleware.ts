@@ -7,7 +7,11 @@ export default clerkMiddleware((auth,req) => {
   if (isProtectedRoute(req)) auth().protect()
   })
   // export default clerkMiddleware({})
-  export const config = {
-    matcher: ['/((?!.*\\..*|_next).*)','/','/(api|trpc)(.*)','/course/[id]']
-
-}
+ export const config = {
+		matcher: [
+			'/', // Root path
+			'/((?!.*\\..*|_next).*)', // Exclude static files and _next assets
+			'/api/(.*)', // Match all API routes
+			'/course/:path*' // Match all routes under /course with dynamic segments
+		]
+ }
