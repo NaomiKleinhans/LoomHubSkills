@@ -1,6 +1,6 @@
 'use client'
 import Head from 'next/head' // For SEO metadata
-import Header from '../components/Header'
+// import Header from '../components/Header'
 
 const About = () => {
 	return (
@@ -14,7 +14,7 @@ const About = () => {
 				/>
 			</Head>
 
-			<Header />
+			{/* <Header /> */}
 
 			{/* Hero Section */}
 			<section className='bg-blue-600 text-white py-12'>
