@@ -9,12 +9,12 @@ const Hero = () => {
 			<p className='mb-8 text-lg md:text-xl'>
 				Innovative Learning Management System designed for modern education.
 			</p>
-			<a
+			{/* <a
 				href='https://star-goshawk-24.accounts.dev/sign-up'
 				className='rounded-full bg-white px-6 py-3 text-lg text-blue-500 transition hover:bg-gray-100'
 			>
 				Get Started
-			</a>
+			</a> */}
 		</section>
 	)
 }
