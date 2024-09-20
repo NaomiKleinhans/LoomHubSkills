@@ -43,11 +43,11 @@ const fetchCourseById = async (id: string): Promise<Course | null> => {
 
 		// Handle image URL
 	const imageUrl = Image?.data?.attributes?.url
-		? `${process.env.NEXT_PUBLIC_API_URL}${Image.data.attributes.url}` // Removed the 'h'
+		? `${process.env.NEXT_PUBLIC_API_URL}/courses/${Image.data.attributes.url}` // Removed the 'h'
 		: ''
 
 	const materialUrl = Material?.data?.attributes?.url
-		? `${process.env.NEXT_PUBLIC_API_URL}${Material.data.attributes.url}`
+		? `${process.env.NEXT_PUBLIC_API_URL}/courses/${Material.data.attributes.url}`
 		: ''
 
 
