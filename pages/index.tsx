@@ -7,37 +7,7 @@ import CTA from '@/pages/components/CTA'
 import Hero from '@/pages/components/Hero'
 import Head from 'next/head'
 
-interface Props {
-	categories: Category[]
-}
-
-export interface Category {
-	id: number
-	name: string
-}
-
-export async function getStaticProps() {
-	try {
-		const categories = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/categories`
-		)
-		const categoryData = await categories.json()
-		return {
-			props: {
-				categories: categoryData
-			}
-		}
-	} catch (error) {
-		console.error('Failed to fetch categories in getStaticProps:', error)
-		return {
-			props: {
-				categories: []
-			}
-		}
-	}
-}
-
-const HomePage: React.FC<Props> = ({}) => {
+const HomePage = ({}) => {
 	return (
 		<div>
 			<Head>

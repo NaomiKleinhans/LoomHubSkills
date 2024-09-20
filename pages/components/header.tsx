@@ -29,11 +29,11 @@ export default function Header() {
 						<Link href='/contact'>Contact</Link>
 					</li>
 				</ul>
-				
+
 				<div className='flex items-center justify-between gap-6'>
 					<SignedOut>
 						<SignInButton mode='modal'>
-							<button >Sign in </button>
+							<button>Sign in </button>
 						</SignInButton>
 					</SignedOut>
 					<SignedIn>
