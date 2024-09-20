@@ -1,6 +1,6 @@
 import Head from 'next/head'
 // import Header from '../components/Header'
-import Footer from '../components/Footer'
+import Footera from '../components/Footera'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
 import Testimonials from '../components/Testimonials'
@@ -34,7 +34,7 @@ const HomePage = () => {
 			<Features /> 
 			 <Testimonials /> 
 			<CTA />
-			<Footer/>
+			<Footera/>
 		</div>
 	)
 }
