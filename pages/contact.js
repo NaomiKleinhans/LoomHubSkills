@@ -1,17 +1,11 @@
-'use client'
-
 import React, { useState } from 'react'
 import Input from '../components/Input'
-
 import Head from 'next/head'
 import Textarea from '../components/Textarea'
-import Header from '../components/Header'
 import Button from '../components/button'
+import emailjs from 'emailjs-com'
 
-console.log('Input Component:', Input)
-console.log('Textarea Component:', Textarea)
-console.log('Header Component:', Header)
-console.log('Button Component:', Button)
+emailjs.init('NIWuQ1H-_DO_3dwmf')
 const Contact = () => {
 	const [formData, setFormData] = useState({
 		firstName: '',
@@ -34,22 +28,25 @@ const Contact = () => {
 		setSuccessMessage('')
 		setErrorMessage('')
 
-		try {
-			const res = await fetch('/api/send-email', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(formData)
-			})
+		const templateParams = {
+			first_name: formData.firstName,
+			last_name: formData.lastName,
+			email: formData.email,
+			message: formData.message
+		}
 
-			if (res.ok) {
-				setSuccessMessage('Message sent successfully!')
-			} else {
-				setErrorMessage('Failed to send the message. Please try again.')
-			}
+		try {
+			await emailjs.send(
+				'service_9ekpr9e', // Service ID
+				'template_glieboe', // Template ID
+				templateParams,
+				'user_xxx' // Replace with your actual User ID
+			)
+
+			setSuccessMessage('Message sent successfully!')
 		} catch (error) {
-			setErrorMessage('Something went wrong. Please try again later.')
+			console.error(error) // Log the error for debugging
+			setErrorMessage('Failed to send the message. Please try again.')
 		} finally {
 			setIsSending(false)
 		}
@@ -76,13 +73,12 @@ const Contact = () => {
 					href='/favicon.ico'
 				/>
 			</Head>
-			<Header />
 			<h1 className='text-center lg:text-5xl md:text-4xl sm:text-3xl font-bold mb-24 text-themeColorMain'>
 				Contact Us
 			</h1>
 			<div className='space-y-4 text-textColor mx-10'>
 				<div className='grid grid-cols-2 gap-4'>
-					<div className='space-y-2'>
+					<div className='space-y-2 border-2 p-1'>
 						<Input
 							id='firstName'
 							placeholder='Enter your first name'
@@ -90,7 +86,7 @@ const Contact = () => {
 							onChange={handleChange}
 						/>
 					</div>
-					<div className='space-y-2'>
+					<div className='space-y-2 border-2 p-1'>
 						<Input
 							id='lastName'
 							placeholder='Enter your last name'
@@ -99,8 +95,9 @@ const Contact = () => {
 						/>
 					</div>
 				</div>
-				<div className='space-y-2'>
+				<div className='space-y-2 border-2 p-1'>
 					<Input
+						className='w-full'
 						id='email'
 						placeholder='Enter your email'
 						type='email'
@@ -108,16 +105,16 @@ const Contact = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className='space-y-2'>
+				<div className='space-y-2 border-2 p-1'>
 					<Textarea
-						className='min-h-[100px]'
+						className='min-h-[100px] w-full'
 						id='message'
 						placeholder='Enter your message'
 						value={formData.message}
 						onChange={handleChange}
 					/>
 				</div>
-				<div> 
+				<div>
 					<Button
 						label={isSending ? 'Sending' : 'Send Message'}
 						style={{

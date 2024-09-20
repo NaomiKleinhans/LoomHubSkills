@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Header from '../components/Header'
+// import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Features from '../components/Features'
@@ -29,7 +29,7 @@ const HomePage = () => {
 					href='/favicon.ico'
 				/>
 			</Head>
-			<Header />
+			{/* <Header /> */}
 			<Hero /> 
 			<Features /> 
 			 <Testimonials /> 

@@ -20,7 +20,7 @@ const Footer = () => {
 					<ul>
 						<li>
 							<a
-								href='#about'
+								href='/about'
 								className='text-gray-400 transition hover:text-white'
 							>
 								About Us
@@ -28,7 +28,7 @@ const Footer = () => {
 						</li>
 						<li>
 							<a
-								href='#contact'
+								href='/contact'
 								className='text-gray-400 transition hover:text-white'
 							>
 								Contact
@@ -36,7 +36,7 @@ const Footer = () => {
 						</li>
 						<li>
 							<a
-								href='#privacy'
+								href='/privacy'
 								className='text-gray-400 transition hover:text-white'
 							>
 								Privacy Policy

@@ -1,51 +1,36 @@
 'use client'
-import React from 'react'
-// import axios from 'axios'
-// import { useRouter } from 'next/router'
-// import Link from 'next/link'
-
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Link from 'next/link'
 import Head from 'next/head'
-import Header from '../../components/Header'
+import Image from 'next/image' // Uncomment if you're using Image component
 
+const CategoryPage = () => {
+	const [categories, setCategories] = useState([])
+	const [loadingCategories, setLoadingCategories] = useState(true)
 
-// import { useState, useEffect } from 'react'
-// import Image from 'next/image' // Uncomment if you're using Image component
+	// Fetch categories from Strapi
+	const fetchCategories = async () => {
+		try {
+			const response = await axios.get(
+				`${process.env.NEXT_PUBLIC_API_URL}/categories?populate=*`
+			)
+			return response.data.data
+		} catch (error) {
+			console.error('Error fetching categories:', error)
+			return []
+		}
+	}
 
-// Function to fetch categories from Strapi
-// const fetchCategories = async () => {
-// 	try {
-// 		const response = await fetch(
-// 			`${process.env.NEXT_PUBLIC_API_URL}/categories`
-// 		)
-// 		const data = await response.json()
+	useEffect(() => {
+		const loadCategories = async () => {
+			const fetchedCategories = await fetchCategories()
+			setCategories(fetchedCategories)
+			setLoadingCategories(false)
+		}
 
-// 		console.log('Fetched categories data:', data) // Check what data is being returned
-
-// 		if (data?.data && Array.isArray(data.data)) {
-// 			return data.data
-// 		} else {
-// 			console.error('Unexpected API response structure:', data)
-// 			return [] // Return an empty array if the structure is unexpected
-// 		}
-// 	} catch (error) {
-// 		console.error('Failed to fetch categories:', error)
-// 		return []
-// 	}
-// }
-
-const CategoryIndexPage = () => {
-	// const [categories, setCategories] = useState([])
-	// const [loadingCategories, setLoadingCategories] = useState(true)
-
-	// useEffect(() => {
-	// 	const loadCategories = async () => {
-	// 		const fetchedCategories = await fetchCategories()
-	// 		setCategories(fetchedCategories)
-	// 		setLoadingCategories(false)
-	// 	}
-
-	// 	loadCategories()
-	// }, [])
+		loadCategories()
+	}, [])
 
 	return (
 		<div>
@@ -68,11 +53,10 @@ const CategoryIndexPage = () => {
 					href='/favicon.ico'
 				/>
 			</Head>
-			<Header />
 			<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
 				Select a Category
 			</h2>
-			{/* 
+
 			<div className='container mx-auto px-4 py-8'>
 				{loadingCategories ? (
 					<p className='text-center text-gray-500'>Loading categories...</p>
@@ -88,7 +72,7 @@ const CategoryIndexPage = () => {
 								{category.attributes.Image && (
 									<div className='my-4'>
 										<Image
-											src={`${process.env.NEXT_PUBLIC_API_URL}${category.attributes.Image.data.attributes.url}`}
+											src={`${category.attributes.Image.data.attributes.url}`} // Remove the extra API prefix
 											alt={category.attributes.Name}
 											width={500}
 											height={500}
@@ -97,7 +81,7 @@ const CategoryIndexPage = () => {
 									</div>
 								)}
 								<Link
-									href={`/category/${category.attributes.Slug}`}
+									href={`/categoryId/${category.attributes.Slug}`} // Use the correct slug for the link
 									className='block text-blue-500 hover:text-blue-700 font-semibold text-lg transition-colors duration-300 ease-in-out'
 								>
 									{category.attributes.Name}
@@ -106,10 +90,9 @@ const CategoryIndexPage = () => {
 						))}
 					</div>
 				)}
-			</div> 
-			*/}
+			</div>
 		</div>
 	)
 }
 
-export default CategoryIndexPage
+export default CategoryPage
