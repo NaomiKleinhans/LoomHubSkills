@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Header from '../components/header'
 // import { getCategories } from '../utils/api'
-// import Header from '@/pages/components/header'
+
 // import Features from '@/pages/components/Features'
 // import Testimonials from '@/pages/components/Testimonials'
 // import CTA from '@/pages/components/CTA'
@@ -21,7 +21,7 @@ const HomePage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<div>Hello</div>
-			{/* <Header /> */}
+			<Header />
 			{/* <Hero /> */}
 			{/* <Features /> */}
 			{/* <Testimonials /> */}

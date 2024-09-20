@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-// import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 export default function Header() {
 	return (
@@ -29,7 +29,7 @@ export default function Header() {
 					</li>
 				</ul>
 
-				{/* <div className='flex items-center justify-between gap-6'>
+				<div className='flex items-center justify-between gap-6'>
 					<SignedOut>
 						<SignInButton mode='modal'>
 							<button>Sign in</button>
@@ -38,7 +38,7 @@ export default function Header() {
 					<SignedIn>
 						<UserButton />
 					</SignedIn>
-				</div> */}
+				</div> 
 			</div>
 		</div>
 	)
