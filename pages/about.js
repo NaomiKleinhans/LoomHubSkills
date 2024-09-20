@@ -1,6 +1,6 @@
 'use client'
-import Header from '../components/Header'
 import Head from 'next/head' // For SEO metadata
+import Header from '../components/Header'
 
 const About = () => {
 	return (

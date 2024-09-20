@@ -7,6 +7,7 @@ import React from 'react'
 import Head from 'next/head'
 import Header from '../../components/Header'
 
+
 // import { useState, useEffect } from 'react'
 // import Image from 'next/image' // Uncomment if you're using Image component
 
