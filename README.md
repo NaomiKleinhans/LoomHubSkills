@@ -46,29 +46,30 @@ To get started with LoomHub Skills locally, follow these steps:
    ```bash
    git clone https://github.com/NaomiKleinhans/LoomHubSkills.git
    cd LoomHubSkills
-Install dependencies:
-bash
-Copy code
-npm install
-Set up your database and configure environment variables as needed.
-Start the development server:
-bash
-Copy code
-npm run dev
-Navigate to http://localhost:3000 to view the application in your browser.
-Usage
-Sign Up: Create a new account using the Clerk authentication system.
-Create Course: Teachers can create and manage their courses on the Strapi server.
-Track Progress: Students can track their progress and access course materials seamlessly.
-Challenges Faced
+2. Install dependencies:
+   ```bash
+   npm install
+3. Set up your database and configure environment variables as needed.
+4. Start the development server:
+   ```bash
+   npm run dev
+5. Navigate to http://localhost:3000 to view the application in your browser.
+   
+## Usage:
+- Sign Up: Create a new account using the Clerk authentication system.
+- Create Course: Teachers can create and manage their courses on the Strapi server.
+- Track Progress: Students can track their progress and access course materials seamlessly.
+
+## Challenges Faced:
 During development, several challenges were encountered, including:
 
-Transitioning from Prisma to Strapi for backend management, which required significant refactoring.
-Balancing a full-time job while working on the project, which posed time management challenges.
-Future Improvements
+- Transitioning from Prisma to Strapi for backend management, which required significant refactoring.
+- Balancing a full-time job while working on the project, which posed time management challenges.
+
+## Future Improvements:
 Looking ahead, I plan to implement the following features:
 
-Integration with payment solutions like Stripe for course transactions.
-Video hosting capabilities to support course content delivery using Mux.
-Enhanced analytics for tracking student performance and course effectiveness.
-Content creation for teachers and individual courses for each student.
+- Integration with payment solutions like Stripe for course transactions.
+- Video hosting capabilities to support course content delivery using Mux.
+- Enhanced analytics for tracking student performance and course effectiveness.
+- Content creation for teachers and individual courses for each student.
