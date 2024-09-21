@@ -1,53 +1,51 @@
-LoomHub Skills
-Where Learning Meets Skill Development
+# LoomHub Skills
+**Where Learning Meets Skill Development**
 
 Welcome to LoomHub Skills, a versatile learning management system designed to facilitate online education and enhance skill development. This project aims to provide an organized platform for students and teachers to manage courses effectively.
 
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Inspiration](#inspiration)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Challenges Faced](#challenges-faced)
+- [Future Improvements](#future-improvements)
 
-
-Table of Contents
-Project Overview
-Inspiration
-Technologies Used
-Features
-Installation
-Usage
-Challenges Faced
-Future Improvements
-
-Project Overview
+## Project Overview
 LoomHub Skills is a full-stack web application built with Next.js and Strapi, offering robust features for course management, student tracking, and user authentication. The platform is designed to be user-friendly and accessible, catering to educational institutions and individual learners globally.
 
-Inspiration
+## Inspiration
 The inspiration for LoomHub Skills stems from the need for an efficient online learning environment that supports course creation, student management, and progress tracking. My passion for learning drives me to ensure that anyone taking courses has a good user experience. I previously completed an internship where I maintained styling on an LMS platform, motivating me to create a similar project to explore how everything works together.
 
-Technologies Used
-Frontend:
+## Technologies Used
+**Frontend:**
+- **Next.js 13** - Framework for server-rendered React applications.
+- **React** - JavaScript library for building user interfaces.
+- **Tailwind CSS** - Utility-first CSS framework.
 
-Next.js 13 - Framework for server-rendered React applications.
-React - JavaScript library for building user interfaces.
-Tailwind CSS - Utility-first CSS framework.
-Backend:
+**Backend:**
+- **Strapi** - Headless CMS and API management.
+- **MySQL** - Relational database management system.
 
-Strapi - Headless CMS and API management.
-MySQL - Relational database management system.
-Authentication:
+**Authentication:**
+- **Clerk** - Authentication platform for user management.
 
-Clerk - Authentication platform for user management.
-Features
-User authentication and management with Clerk.
-Course creation and management for both students and teachers (currently, teachers create courses directly on the Strapi server).
-Fully functional CRUD operations integrated with Strapi API.
-Responsive UI designed with Tailwind CSS for optimal user experience.
-Currently, there is no content creation feature for teachers or individual courses for each student, which I plan to implement in the future.
-Installation
+## Features
+- User authentication and management with Clerk.
+- Course creation and management for both students and teachers (currently, teachers create courses directly on the Strapi server).
+- Fully functional CRUD operations integrated with Strapi API.
+- Responsive UI designed with Tailwind CSS for optimal user experience.
+- Currently, there is no content creation feature for teachers or individual courses for each student, which I plan to implement in the future.
+
+## Installation
 To get started with LoomHub Skills locally, follow these steps:
 
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/NaomiKleinhans/LoomHubSkills.git
-cd LoomHubSkills
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/NaomiKleinhans/LoomHubSkills.git
+   cd LoomHubSkills
 Install dependencies:
 bash
 Copy code
