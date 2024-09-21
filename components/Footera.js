@@ -13,7 +13,7 @@ const Footer = () => {
 				<div>
 					<h5 className='mb-2 text-lg font-bold'>Contact</h5>
 					<p className='text-gray-400'>Email: support@lmsplatform.com</p>
-					<p className='text-gray-400'>Phone: +1 (123) 456-7890</p>
+					<p className='text-gray-400'>Phone: 0744380907</p>
 				</div>
 				<div>
 					<h5 className='mb-2 text-lg font-bold'>Quick Links</h5>
@@ -26,14 +26,14 @@ const Footer = () => {
 								About Us
 							</a>
 						</li>
-						<li>
+						{/* <li>
 							<a
 								href='/contact'
 								className='text-gray-400 transition hover:text-white'
 							>
 								Contact
 							</a>
-						</li>
+						</li> */}
 						<li>
 							<a
 								href='/privacy'
