@@ -1,6 +1,5 @@
 'use client'
-import Head from 'next/head' // For SEO metadata
-// import Header from '../components/Header'
+import Head from 'next/head'
 
 const About = () => {
 	return (
@@ -13,8 +12,6 @@ const About = () => {
 					content='Learn more about LoomHubSkills, your go-to platform for mastering in-demand skills.'
 				/>
 			</Head>
-
-			{/* <Header /> */}
 
 			{/* Hero Section */}
 			<section className='bg-blue-600 text-white py-12'>
@@ -76,8 +73,7 @@ const About = () => {
 						you every step of the way.
 					</p>
 					<a
-						// href='/courses'
-						href='/category'
+				href='/category'
 						className='mt-6 inline-block bg-white text-blue-600 font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 transition duration-200'
 					>
 						Browse Courses

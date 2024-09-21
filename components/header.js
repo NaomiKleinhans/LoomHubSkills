@@ -12,7 +12,7 @@ export default function Header() {
 					alt='logo'
 					width={150}
 					height={150}
-					priority // Ensures the image is loaded and consistent
+					priority
 				/>
 				<ul className='flex gap-10 text-sm font-medium'>
 					<li>
@@ -24,9 +24,9 @@ export default function Header() {
 					<li>
 						<Link href='/about'>About</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Link href='/contact'>Contact</Link>
-					</li>
+					</li> */}
 				</ul>
 
 				<div className='flex items-center justify-between gap-6'>

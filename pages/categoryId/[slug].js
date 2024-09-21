@@ -9,7 +9,6 @@ import Image from 'next/image'
 
 const fetchCoursesByCategoryId = async (categorySlug) => {
 	try {
-		// Corrected the API call to filter by category slug
 		const apiUrl = `https://supportive-melody-bc72f8134e.strapiapp.com/api/courses?filters[category][Slug][$eq]=${categorySlug}&populate=*`
 		console.log('Fetching courses for category:', categorySlug)
 
@@ -17,7 +16,6 @@ const fetchCoursesByCategoryId = async (categorySlug) => {
 		console.log('API Response:', response.data)
 
 		if (response.data && response.data.data) {
-			// Return the courses with proper mapping
 			return response.data.data.map((course) => {
 				const courseAttributes = course.attributes
 
@@ -25,8 +23,9 @@ const fetchCoursesByCategoryId = async (categorySlug) => {
 					slug: courseAttributes.Slug,
 					title: courseAttributes.Title,
 					description: courseAttributes.ShortDescription,
+					duration: courseAttributes.Duration,
 					image:
-						courseAttributes.Image?.data?.attributes?.formats?.small?.url || '' // Image URL
+						courseAttributes.Image?.data?.attributes?.formats?.small?.url || ''
 				}
 			})
 		} else {
@@ -53,14 +52,12 @@ const CategoryIdPage = () => {
 				setError(null)
 				console.log('Fetching courses for category slug:', slug)
 
-				// Fetch courses based on category slug
 				const fetchedCourses = await fetchCoursesByCategoryId(slug)
 				console.log('Courses fetched:', fetchedCourses)
 
 				setCourses(fetchedCourses)
 				setCoursesLoading(false)
 
-				// Set an error message if no courses are found
 				if (fetchedCourses.length === 0) {
 					setError('No courses found for this category.')
 				}
@@ -112,31 +109,35 @@ const CategoryIdPage = () => {
 						<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
 							Courses in Category <span className='text-blue-600'>{slug}</span>
 						</h2>
-						<ul className='list-disc pl-5 space-y-2'>
+						<ul className='list-none pl-0 space-y-2'>
 							{courses.map((course) => (
 								<li
 									key={course.slug}
-									className='bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow'
+									className='flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow'
 								>
-									{/* Display Course Image */}
 									{course.image && (
 										<Image
 											src={course.image}
 											alt={course.title}
-											width={500}
-											height={500}
-											className='rounded-md'
+											width={100} // Adjust width for smaller image
+											height={100} // Adjust height for smaller image
+											className='rounded-md mr-4' // Add margin for spacing
 										/>
 									)}
-
-									{/* Display Course Title and Description */}
-									<Link
-										href={`/courseId/${course.slug}`}
-										// href='/course'
-										className='text-blue-600 hover:underline text-xl font-medium'
-									>
-										{course.title}
-									</Link>
+									<div className='flex-grow'>
+										<Link
+											href={`/courseId/${course.slug}`}
+											className='text-blue-600 hover:underline text-xl font-medium'
+										>
+											{course.title}
+										</Link>
+									</div>
+									<p className='font-semibold mb-2'>
+										{' '}
+										{course.duration
+											? `${course.duration} hours`
+											: ''}
+									</p>
 								</li>
 							))}
 						</ul>

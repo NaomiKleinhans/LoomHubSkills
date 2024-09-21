@@ -1,4 +1,3 @@
-// Input.js
 const Input = (props) => {
 	return <input {...props} />
 }
