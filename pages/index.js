@@ -1,3 +1,4 @@
+'use client'
 import Head from 'next/head'
 import Footera from '../components/Footera'
 import Hero from '../components/Hero'
