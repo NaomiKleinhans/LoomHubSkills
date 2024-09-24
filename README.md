@@ -1,34 +1,75 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# LoomHub Skills
+**Where Learning Meets Skill Development**
 
-## Getting Started
+Welcome to LoomHub Skills, a versatile learning management system designed to facilitate online education and enhance skill development. This project aims to provide an organized platform for students and teachers to manage courses effectively.
 
-First, run the development server:
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Inspiration](#inspiration)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Challenges Faced](#challenges-faced)
+- [Future Improvements](#future-improvements)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Project Overview
+LoomHub Skills is a full-stack web application built with Next.js and Strapi, offering robust features for course management, student tracking, and user authentication. The platform is designed to be user-friendly and accessible, catering to educational institutions and individual learners globally.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Inspiration
+The inspiration for LoomHub Skills stems from the need for an efficient online learning environment that supports course creation, student management, and progress tracking. My passion for learning drives me to ensure that anyone taking courses has a good user experience. I previously completed an internship where I maintained styling on an LMS platform, motivating me to create a similar project to explore how everything works together.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
+**Frontend:**
+- **Next.js 13** - Framework for server-rendered React applications.
+- **React** - JavaScript library for building user interfaces.
+- **Tailwind CSS** - Utility-first CSS framework.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**Backend:**
+- **Strapi** - Headless CMS and API management.
+- **MySQL** - Relational database management system.
 
-## Learn More
+**Authentication:**
+- **Clerk** - Authentication platform for user management.
 
-To learn more about Next.js, take a look at the following resources:
+## Features
+- User authentication and management with Clerk.
+- Course creation and management for both students and teachers (currently, teachers create courses directly on the Strapi server).
+- Fully functional CRUD operations integrated with Strapi API.
+- Responsive UI designed with Tailwind CSS for optimal user experience.
+- Currently, there is no content creation feature for teachers or individual courses for each student, which I plan to implement in the future.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation
+To get started with LoomHub Skills locally, follow these steps:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/NaomiKleinhans/LoomHubSkills.git
+   cd LoomHubSkills
+2. Install dependencies:
+   ```bash
+   npm install
+3. Set up your database and configure environment variables as needed.
+4. Start the development server:
+   ```bash
+   npm run dev
+5. Navigate to http://localhost:3000 to view the application in your browser.
+   
+## Usage:
+- Sign Up: Create a new account using the Clerk authentication system.
+- Create Course: Teachers can create and manage their courses on the Strapi server.
+- Track Progress: Students can track their progress and access course materials seamlessly.
 
-## Deploy on Vercel
+## Challenges Faced:
+During development, several challenges were encountered, including:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Transitioning from Prisma to Strapi for backend management, which required significant refactoring.
+- Balancing a full-time job while working on the project, which posed time management challenges.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Future Improvements:
+Looking ahead, I plan to implement the following features:
+
+- Integration with payment solutions like Stripe for course transactions.
+- Video hosting capabilities to support course content delivery using Mux.
+- Enhanced analytics for tracking student performance and course effectiveness.
+- Content creation for teachers and individual courses for each student.
