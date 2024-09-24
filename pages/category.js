@@ -8,6 +8,7 @@ import Image from 'next/image'
 const CategoryPage = () => {
 	const [categories, setCategories] = useState([])
 	const [loadingCategories, setLoadingCategories] = useState(true)
+	const [error, setError] = useState(null)
 
 	const fetchCategories = async () => {
 		try {
@@ -17,6 +18,7 @@ const CategoryPage = () => {
 			return response.data.data
 		} catch (error) {
 			console.error('Error fetching categories:', error)
+			setError('Could not fetch categories. Please try again later.')
 			return []
 		}
 	}
@@ -39,18 +41,6 @@ const CategoryPage = () => {
 					name='description'
 					content='Course Categories on LoomHub Skills'
 				/>
-				<meta
-					name='robots'
-					content='index, follow'
-				/>
-				<meta
-					name='viewport'
-					content='width=device-width, initial-scale=1'
-				/>
-				<link
-					rel='icon'
-					href='/favicon.ico'
-				/>
 			</Head>
 			<h2 className='text-4xl font-semibold mb-6 text-gray-800 text-center'>
 				Select a Category
@@ -59,6 +49,8 @@ const CategoryPage = () => {
 			<div className='container mx-auto px-4 py-8'>
 				{loadingCategories ? (
 					<p className='text-center text-gray-500'>Loading categories...</p>
+				) : error ? (
+					<p className='text-center text-red-500'>{error}</p>
 				) : categories.length === 0 ? (
 					<p className='text-center text-gray-500'>No categories available.</p>
 				) : (
@@ -72,7 +64,7 @@ const CategoryPage = () => {
 									<div className='my-4 flex-grow'>
 										<Image
 											src={category.attributes.Image.data.attributes.url}
-											alt={category.attributes.Name}
+											alt={category.attributes.Name || 'Category Image'}
 											width={500}
 											height={500}
 											className='rounded-md'

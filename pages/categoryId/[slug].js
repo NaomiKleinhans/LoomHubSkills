@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 
+// Function to fetch courses by category ID
 const fetchCoursesByCategoryId = async (categorySlug) => {
 	try {
 		const apiUrl = `https://supportive-melody-bc72f8134e.strapiapp.com/api/courses?filters[category][Slug][$eq]=${categorySlug}&populate=*`
@@ -15,6 +16,7 @@ const fetchCoursesByCategoryId = async (categorySlug) => {
 		const response = await axios.get(apiUrl)
 		console.log('API Response:', response.data)
 
+		// Map response data to a usable format
 		if (response.data && response.data.data) {
 			return response.data.data.map((course) => {
 				const courseAttributes = course.attributes
@@ -39,33 +41,33 @@ const fetchCoursesByCategoryId = async (categorySlug) => {
 }
 
 const CategoryIdPage = () => {
-	const [courses, setCourses] = useState([])
-	const [coursesLoading, setCoursesLoading] = useState(false)
-	const [error, setError] = useState(null)
+	const [courses, setCourses] = useState([]) // State to store fetched courses
+	const [coursesLoading, setCoursesLoading] = useState(false) // Loading state
+	const [error, setError] = useState(null) // Error state
 	const router = useRouter()
-	const { slug } = router.query
+	const { slug } = router.query // Get category slug from URL
 
 	useEffect(() => {
 		if (slug) {
 			const loadCourses = async () => {
-				setCoursesLoading(true)
-				setError(null)
+				setCoursesLoading(true) // Set loading to true
+				setError(null) // Reset any previous errors
 				console.log('Fetching courses for category slug:', slug)
 
 				const fetchedCourses = await fetchCoursesByCategoryId(slug)
 				console.log('Courses fetched:', fetchedCourses)
 
-				setCourses(fetchedCourses)
-				setCoursesLoading(false)
+				setCourses(fetchedCourses) // Update courses state
+				setCoursesLoading(false) // Set loading to false
 
 				if (fetchedCourses.length === 0) {
-					setError('No courses found for this category.')
+					setError('No courses found for this category.') // Set error if no courses
 				}
 			}
 
-			loadCourses()
+			loadCourses() // Fetch courses
 		}
-	}, [slug])
+	}, [slug]) // Fetch courses when slug changes
 
 	return (
 		<div>
@@ -134,9 +136,7 @@ const CategoryIdPage = () => {
 									</div>
 									<p className='font-semibold mb-2'>
 										{' '}
-										{course.duration
-											? `${course.duration} hours`
-											: ''}
+										{course.duration ? `${course.duration} hours` : ''}
 									</p>
 								</li>
 							))}

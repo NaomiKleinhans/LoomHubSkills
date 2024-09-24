@@ -6,6 +6,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { SignIn, useUser } from '@clerk/nextjs'
 
+// Function to fetch course by slug
 const fetchCourseBySlug = async (slug) => {
 	try {
 		const apiUrl = `https://supportive-melody-bc72f8134e.strapiapp.com/api/courses?filters[Slug][$eq]=${slug}&populate=*`
@@ -14,6 +15,7 @@ const fetchCourseBySlug = async (slug) => {
 		const response = await axios.get(apiUrl)
 		console.log('API Response:', response.data)
 
+		// Check if the response contains course data
 		if (response.data && response.data.data.length > 0) {
 			const courseAttributes = response.data.data[0].attributes
 			return {
@@ -38,9 +40,9 @@ const fetchCourseBySlug = async (slug) => {
 }
 
 const CoursePage = () => {
-	const [course, setCourse] = useState(null)
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
+	const [course, setCourse] = useState(null) // State to store course data
+	const [loading, setLoading] = useState(false) // Loading state
+	const [error, setError] = useState(null) // Error state
 	const router = useRouter()
 	const { slug } = router.query
 	const { isLoaded, isSignedIn } = useUser()
@@ -48,44 +50,44 @@ const CoursePage = () => {
 	useEffect(() => {
 		if (slug) {
 			const loadCourse = async () => {
-				setLoading(true)
-				setError(null)
+				setLoading(true) // Set loading to true
+				setError(null) // Reset error state
 
 				const fetchedCourse = await fetchCourseBySlug(slug)
 				if (fetchedCourse) {
-					setCourse(fetchedCourse)
+					setCourse(fetchedCourse) // Update course state
 				} else {
-					setError('Course not found.')
+					setError('Course not found.') // Set error if course is not found
 				}
-				setLoading(false)
+				setLoading(false) // Set loading to false
 			}
 
-			loadCourse()
+			loadCourse() // Fetch course data
 		}
-	}, [slug])
+	}, [slug]) // Run effect when slug changes
 
 	if (!isLoaded) {
-		return <p className='text-center mt-4'>Loading user state...</p>
+		return <p className='text-center mt-4'>Loading user state...</p> // Loading user state
 	}
 
 	if (!isSignedIn) {
 		return (
 			<div className='flex justify-center mt-40'>
-				<SignIn routing='hash' />
+				<SignIn routing='hash' /> // Render sign-in component if not signed in
 			</div>
 		)
 	}
 
 	if (loading) {
-		return <p className='text-center mt-4'>Loading course...</p>
+		return <p className='text-center mt-4'>Loading course...</p> // Loading course data
 	}
 
 	if (error) {
-		return <p className='text-red-600 text-center mt-4'>{error}</p>
+		return <p className='text-red-600 text-center mt-4'>{error}</p> // Display error message
 	}
 
 	if (!course) {
-		return <p className='text-center mt-4'>No course details available.</p>
+		return <p className='text-center mt-4'>No course details available.</p> // No course details
 	}
 
 	return (
